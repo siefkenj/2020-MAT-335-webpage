@@ -1,0 +1,163 @@
+\documentclass[letter]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+%%%
+% Set up the margins to use a fairly large area of the page
+%%%
+\oddsidemargin=.2in
+\evensidemargin=.2in
+\textwidth=6in
+\topmargin=0in
+\textheight=9.0in
+\parskip=.07in
+\parindent=0in
+\pagestyle{fancy}
+
+%%%
+% Set up the header
+%%%
+\newcommand{\setheader}[6]{
+	\lhead{{\sc #1}\\{\sc #2} ({\small \it \today})}
+	\rhead{
+		{\bf #3} 
+		\ifthenelse{\equal{#4}{}}{}{(#4)}\\
+		{\bf #5} 
+		\ifthenelse{\equal{#6}{}}{}{(#6)}%
+	}
+}
+
+\makeatletter
+\newcommand{\escapeus}{\begingroup\@makeother\_\@escapeus}
+\newcommand*{\@escapeus}[1]{#1\endgroup}
+\makeatother
+
+%%%
+% Set up some shortcut commands
+%%%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Proj}{\mathrm{proj}}
+\newcommand{\Perp}{\mathrm{perp}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\Null}{\mathrm{null}}
+\newcommand{\Rank}{\mathrm{rank}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\var}[1]{{$\langle$\it #1$\rangle$}}
+\newcommand{\Code}[1]{\texttt{\escapeus #1}}
+
+%%%
+% This is where the body of the document goes
+%%%
+\begin{document}
+	\setheader{MAT335}{Homework 0}{Due: 11:59pm January 12}{}{}{}
+	In this class, we'll be doing a lot of math, but we'll also be 
+	focusing on our writing and communication skills as well as using computers
+	to simulate results and make pictures.  This homework is to help familiarize 
+	you with the tools we'll be using. In particular, your math write-ups will
+	be completed in \LaTeX and your simulations will be done in the {\tt Python}
+	programming language.
+
+	In this course, you'll be doing \emph{ a lot} of googling, trying to get \LaTeX{} and
+	{\tt Python} to do what you want. Don't worry about making mistakes or trying something
+	that you don't understand. Dive right in!
+
+	\begin{enumerate}
+		\item Prepare a 1-page \LaTeX{}\footnote{ \LaTeX{} is a programming language designed for typsetting
+			mathematics. It is the language used to make many of your textbooks, and is the standard for
+			Math/CS writeups (but there are also libraries for econ, chemistry, and other disciplines!).} document that has
+		\begin{enumerate}
+			\item A one to two paragraph math biography. Explain how you feel about math: Have you always felt that way?
+				Have you had experiences that brought you to like math more? Less?
+			\item A footnote (you can use the \verb|\footnote{}| command).
+			\item A figure (if you're feeling adventurous, you can use {\tt tikz} to draw your figure; otherwise,
+				you can just include an image).
+			\item Your two equations, one in \emph{inline} and \emph{display} style. (Inline is when
+				they show up in a paragraph by using \verb|$...$|, display is when the math forms
+				its own paragraph by using \verb|\[...\]|.)
+			\item A $2\times 3$ matrix.
+		\end{enumerate}
+
+		You can either install \LaTeX{} or use a free, online version available at \url{https://overleaf.com}. Please
+		see \url{https://www.overleaf.com/learn/latex/Creating_a_document_in_LaTeX} for a basic introduction to \LaTeX{}.
+		For a more advanced introduction, you can read \url{https://tobi.oetiker.ch/lshort/lshort.pdf}.
+
+
+
+		\item Do the following programming exercises in a \url{https://utoronto.syzygy.ca} Jupyter notebook\footnote{ Jupyter
+			notebooks provide an interactive programming environment where you can write {\tt Python} code and get 
+			the results immediately.}.
+
+			To ``Do'' a programming exercise means to ...
+		\begin{enumerate}
+			\item Clone ....
+			\item Write a function called {\tt hi()} which takes a first name and a last name and prints 
+				\begin{quote}{\tt Hi \var{first name}. What is the origin of '\var{last name}'?}\end{quote}
+			\item Write a function \verb|square_the_list()| which inputs a list of numbers and returns
+				a list of each of the numbers squared.
+			\item Use {\tt numpy} and {\tt matplotlib} to produce a graph of the function $f(x)=x^2$ and the tangent
+				line to $f$ at $x=1$ on the same grid. Color the graph of $f$ red (any shade) and the graph of the
+				tangent line blue (again, any shade you like!). 
+			\item Make a function \verb|is_prime()| that returns $1$ if the input is prime and $0$ otherwise.
+			\item Use {\tt \var{axis}.imshow} to make a $50\times 50$ black-and-white image. The $n$th square in your
+				image should be black if the number $n$ is not prime and white if the number $n$ is prime. Index your image
+				in the following way: the square at coordinates $(i,j)$ corresponds to the number $i+n*j$. 
+				And remember, in {\tt Python} the first element of a list is $0$ (not $1$!).
+		\end{enumerate}
+	\end{enumerate}
+
+\end{document}
