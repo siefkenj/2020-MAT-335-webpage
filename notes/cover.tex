@@ -1,0 +1,72 @@
+\begin{tikzpicture}[remember picture,overlay, shift={(current page.north west)}, >=latex]
+	\definecolor{coverblue}{HTML}{ffd33c}
+	\definecolor{coverpink}{HTML}{ff97e8}
+	\definecolor{coveraccentpink}{HTML}{ffd33c}
+	\definecolor{coverorange}{HTML}{ffffff}
+	\definecolor{covershade}{HTML}{3f004d}
+
+
+
+	\begin{scope}
+	%	\node[anchor=south east,inner sep=0pt,outer sep=0pt,] 
+	%	at (current page.south east) {\includegraphics[width=\paperwidth, height=\paperheight]{images/orangeback.jpg}};
+
+		\fill[path fading=north,covershade] (0,2.2in) rectangle ([yshift=-1.01in, xshift=2pt]current page.north east);
+		\fill[covershade] (0,-1in) rectangle ([yshift=-2.05in]current page.north east);
+		\fill[path fading=south, covershade] (0,-2in) rectangle ([xshift=1in,yshift=2in]current page.south east);
+	\end{scope}
+
+
+  \begin{scope}[yscale=-1, xscale=1, x=2.7pt, y=2.7pt,line join=miter,line cap=butt,line width=1.3pt, yshift=2.3cm, xshift=.7cm,
+	  ]
+
+	  \coordinate (E) at (57.55,23.15);
+	  \coordinate (A) at (195.3,27.9);
+	  \coordinate (C) at (195.3,104);
+	  \coordinate (SUB) at (141, 30);
+		
+  \end{scope}
+
+  	\coordinate (X) at (3, -15);
+	\path (E) --  (C)  
+		coordinate[pos=0] (X1)
+		coordinate[pos=.017] (X2)
+		coordinate[pos=.08] (X3)
+		coordinate[pos=.2] (X4)
+		coordinate[pos=.5] (X5)
+		coordinate[pos=1] (X6)
+		-- (A);
+	\draw[coverpink, line width=1.3pt] (E) --  (C)  
+		-- (A);
+	\begin{scope}[coverorange, line width=0.5pt]
+		\draw[->] 
+			(X) -- (X1) node[pos=.5, above left] {\Large $\vec u$};
+		\draw[->] 
+			(X) -- (X2);
+		\draw[->] 
+			(X) -- (X3);
+		\draw[->] 
+			(X) -- (X4);
+		\draw[->, coveraccentpink, line width=1.3pt] 
+			(X) -- (X5) node[pos=.6, below right] {\Large $\vec w_{\alpha}=\alpha {\color{coverorange}\vec u} + (1-\alpha){\color{coverorange}\vec v}$};
+		\draw[->] 
+			(X) -- (X6) node[pos=.7, below right] {\Large $\vec v$};
+	\end{scope}
+
+	\path[white] (SUB) node[anchor=north west] {\Large \bfseries \sffamily \coversubtitle};
+
+\newcommand{\authornames}{\huge \sffamily \bfseries \begin{tabular}{r}Jason Siefken\end{tabular}}
+	\newcommand{\ypadd}{.5em}
+	\newcommand{\xpadd}{1em}
+
+	\draw (0, -24) node[right, xshift=10em] (AUTHOR) {\phantom{\authornames}};
+	\path let \p1 = (AUTHOR.north) in coordinate (Ab1) at (0,\y1+\ypadd);
+	\path let \p1 = (AUTHOR.north east) in coordinate (Ab2) at (\x1+\xpadd,\y1+\ypadd);
+	\path let \p1 = (AUTHOR.south east) in coordinate (Ab3) at (\x1+\xpadd,\y1-\ypadd);
+	\path let \p1 = (AUTHOR.south) in coordinate (Ab4) at (0,\y1-\ypadd);
+
+	\path[fill=covershade, path fading=west, opacity=.8] (Ab1) -- (Ab2) -- (Ab3) -- (Ab4);
+	\draw[covershade!80!black, line width=1.3pt] (Ab1) -- (Ab2) -- (Ab3) -- (Ab4);
+	\draw (0, -24) node[right, xshift=10em, white] (AUTHOR) {\authornames};
+
+\end{tikzpicture}

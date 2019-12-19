@@ -1,0 +1,354 @@
+
+% WARNING!  Do not type any of the following 10 characters except as directed:
+%                &   $   #   %   _   {   }   ^   ~   \   
+%
+%%
+%%  default option for pdfx.sty  if not specified on the command-line.
+\providecommand{\pdfxopt}{a-1b}
+%% 
+%%  Use  {filecontents}  for the  .xmpdata file before input encoding is specified.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{filecontents*}{\jobname.xmpdata}
+	% a macro definition, used below
+	\pdfxEnableCommands{% simple macro definitions can be provided everything expands to characters
+	 \def\RossPete{Ross \& Pete}
+	 }
+	\Title{Linear Algebra (\jobname)}%  *not* set by LaTeX's  \title
+	\Author{Jason Siefken\sep et al.}% *not* set by LaTeX's \author
+	\Subject{Linear Algebra textbook/workbook}
+	\Keywords{linear algebra\sep vectors\sep mathematics\sep textbook} 
+	\Org{University of Toronto}
+	\CreatorTool{LaTeX + pdfx.sty with options \pdfxopt}
+	\Copyright{Jason Siefken}
+	\WebStatement{https://github.com/siefkenj/IBLLinearAlgebra/}% should be URL to copyright statement on the web
+	\CoverDisplayDate{2019}
+	\CoverDate{2019-08-014}%  must be in format  YYYY-MM-DD  or  YYYY-MM
+	\Doi{0.0.0.0}%
+	%
+	% setting the color profile, these reproduce the defaults; use your own, if required 
+	%
+	% RGB is used with PDF/A (4 parameters):
+	\setRGBcolorprofile{sRGB_IEC61966-2-1_black_scaled.icc}{sRGB_IEC61966-2-1_black_scaled}{sRGB IEC61966 v2.1 with black scaling}{http://www.color.org}
+	%
+	%  For Adobe Color Profiles, set the directory for your system
+	%
+	%  e.g.  on Mac OS X
+	%  What is it under Windows ?
+	%
+	\gdef\ColorProfileDir{/Library/Application Support/Adobe/Color/Profiles/Recommended/}
+	% 
+	%  For available profiles, see file  AdobeColorProfiles.tex
+	%  For PDF/X-4p or PDF/X-5pg   see file  AdobeExternalProfiles.tex  
+	%
+	%  Now you can use the macros defined in those files:
+	 \FOGRAXXXIX 
+	%
+	% or CMYK is used with  PDF/X (4 parameters)
+	% \setCMYKcolorprofile{\ColorProfileDir coated_FOGRA39L_argl.icc}{Coated FOGRA39}{FOGRA39 (ISO Coated v2 300\%\space (ECI))}{http://www.color.org}
+\end{filecontents*}
+
+\documentclass{problemset}
+
+
+% pdfx will set color profile etc. information appropriately, so the pdf renders
+% consistently across devices. But, it doesn't work with the xelatex-based tectonics
+\usepackage{ifxetex}
+	\usepackage[utf8]{inputenc}
+\ifxetex
+\else
+	\usepackage[a-3u]{pdfx}
+	\hypersetup{hidelinks=true, linkcolor = {0 0 1} }
+\fi
+
+%%%
+% import all needed packages and macros
+%%%
+\usepackage[yyyymmdd]{datetime}
+\input{preamble.tex}
+
+% in non-xelatex engines, hyperref is loaded by `pdfx`. If `pdfx` is not loaded, load it here.
+\ifxetex
+	\usepackage{hyperref}
+	\hypersetup{hidelinks=true, linkcolor = {0 0 1} }
+\else
+\fi
+
+%%%
+% Set up the footers to have the correct copyright notices
+%%%
+
+\fancypagestyle{siefken}{%
+	\rfoot{\footnotesize\it \copyright\,Jason Siefken, 2015--2019 \ \makebox(30,5){\includegraphics[height=1.2em]{by-sa.pdf}}}
+	\lfoot{}
+	\renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{iola}{%
+	\rfoot{\footnotesize\it \copyright\,IOLA Team \url{iola.math.vt.edu} \ \makebox(30,5){\includegraphics[height=2.2em]{images/iolalogo.png}}}
+	\lfoot{}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+\DeclareDocumentEnvironment{iola}{o}{%
+	\newpage
+	\pagestyle{iola}
+}{%
+	\newpage
+}
+
+
+%%
+% Allow hiding of environments
+%%
+\usepackage{environ}% http://ctan.org/pkg/environ
+\makeatletter
+\newcommand{\voidenvironment}[1]{%
+  \expandafter\providecommand\csname env@#1@save@env\endcsname{}%
+  \expandafter\providecommand\csname env@#1@process\endcsname{}%
+  \@ifundefined{#1}{}{\RenewEnviron{#1}{}}%
+}
+\makeatother
+% allow pagebreaks that only display in `standard` mode
+\newcommand{\displayonlynewpage}{\begin{displayonly}\newpage\end{displayonly}}
+% allow pagebreaks that only display in `book` mode
+\newcommand{\bookonlynewpage}{\begin{bookonly}\newpage\end{bookonly}}
+
+%
+% Set up the three render modes: standard, instructor, and solutions.
+% These render with varying amounts of extra data (like solutions and notes)
+%
+\newtoggle{instructor}
+\newtoggle{standard}
+\newtoggle{solutions}
+\newtoggle{book}
+\newcommand{\setinstructor}{
+	\toggletrue{instructor}
+	\togglefalse{standard}
+	\togglefalse{solutions}
+	\togglefalse{book}
+}
+\newcommand{\setstandard}{
+	\togglefalse{instructor}
+	\toggletrue{standard}
+	\togglefalse{solutions}
+	\togglefalse{book}
+}
+\newcommand{\setsolutions}{
+	\togglefalse{instructor}
+	\togglefalse{standard}
+	\toggletrue{solutions}
+	\togglefalse{book}
+}
+\newcommand{\setbook}{
+	\togglefalse{instructor}
+	\togglefalse{standard}
+	\togglefalse{solutions}
+	\toggletrue{book}
+	\setbookgeometry
+}
+
+%
+% Infer the document level from the \jobname
+%
+\usepackage{xstring}
+\IfSubStr{\jobname}{\detokenize{book}}{\setbook}{
+	\IfSubStr{\jobname}{\detokenize{solutions}}{\setsolutions}{
+		\IfSubStr{\jobname}{\detokenize{instructor}}{\setinstructor}{
+			\setstandard
+		}
+	}
+}
+
+%
+% Hide the non-problem environments
+%
+\newcommand{\coversubtitle}{} % we override the subtitle in each mode, so make sure the command exists to override.
+\iftoggle{instructor}{
+	\voidenvironment{module}
+	\voidenvironment{bookonly}
+	\voidenvironment{displayonly}
+	\renewcommand{\coversubtitle}{Instructor Guide}
+}{}
+\iftoggle{solutions}{
+	\voidenvironment{module}
+	\voidenvironment{bookonly}
+	\voidenvironment{displayonly}
+	\voidenvironment{lesson}
+	\voidenvironment{notes}
+	\renewcommand{\coversubtitle}{Solutions}
+}{}
+\iftoggle{standard}{
+	\voidenvironment{module}
+	\voidenvironment{bookonly}
+	\voidenvironment{solution}
+	\voidenvironment{annotation}
+	\voidenvironment{lesson}
+	\renewcommand{\coversubtitle}{MAT335 Notes}
+}{}
+\iftoggle{book}{
+	\voidenvironment{displayonly}
+	\voidenvironment{solution}
+	\voidenvironment{annotation}
+	\voidenvironment{lesson}
+	\renewcommand{\coversubtitle}{{\hspace{-5pt}\begin{tabular}{l}MAT223 Workbook\\\small\today{} Edition\end{tabular}}}
+}{}
+%\voidenvironment{solution}
+%\voidenvironment{annotation}
+%\voidenvironment{lesson}
+%%\voidenvironment{notes}
+%%\voidenvironment{displayonly}
+
+
+
+
+\begin{document}
+
+%%
+%% End Definitions
+%%
+
+
+
+
+
+
+\pagestyle{empty}
+
+\input{cover.tex}
+
+\newpage
+
+
+\newcommand{\standardintro}{
+\begin{center}
+{\huge\bf Inquiry Based Linear Algebra}\\
+
+\vspace{.7in}
+{
+\it \copyright\,Jason Siefken, 2016--2019 \\
+Creative Commons By-Attribution Share-Alike\, \makebox(30,5){\includegraphics[height=1.2em]{by-sa.pdf}}
+}
+\end{center}
+
+\section*{About the Document}
+
+This document is a hybrid of many linear algebra resources, including those of
+the IOLA (Inquiry Oriented Linear Algebra) project and Jason Siefken's
+IBL Linear Algebra project.
+
+This document is a mix of short problems and more involved exploratory question. A typical
+class day looks like:
+\begin{enumerate}
+	\item {\bf Introduction by instructor.} This may involve giving a definition,
+		a broader context for the day's topics, or answering questions.
+
+	\item {\bf Students work on problems.} Students work individually or in pairs/small groups
+		on the prescribed problem. During this time the instructor moves
+		around the room addressing questions that students may have and giving
+		one-on-one coaching.
+
+	\item {\bf Instructor intervention.} When most students have successfully solved
+		the problem, the instructor refocuses the class by providing an
+		explanation or soliciting explanations from students.
+		This is also time for the instructor to ensure that everyone has
+		understood the main point of the exercise (since it is sometimes
+		easy to miss the point!).
+
+		If students are having trouble, the instructor can give hints
+		and additional guidance to ensure students' struggle is productive.
+
+	\item {\bf Repeat step 2.}
+\end{enumerate}
+
+Using this format, students are thinking (and happily so) most of the class. Further,
+after struggling with a question, students are especially primed to hear the insights of the instructor.
+
+These problems are geared towards concepts instead of computation, though some problems
+focus on simple computation. The questions also have a geometric lean. Vectors are initially
+introduced with familiar coordinate notation, but eventually, coordinates are understood to be
+\emph{representations} of vectors rather than ``true'' geometric vectors, and objects like the
+determinant are defined via oriented volumes rather than formulas involving matrix entries.
+
+\bigskip
+{\bf License} Unless otherwise mentioned, pages of this document are licensed under
+the Creative Commons By-Attribution Share-Alike License. That means, you are free
+to use, copy, and modify this document provided that you provide attribution to the
+previous copyright holders and you release your derivative work under the same license.
+Full text of the license is at \url{http://creativecommons.org/licenses/by-sa/4.0/}
+
+If you modify this document, you may add your name to the copyright list. Also,
+if you think your contributions would be helpful to others, consider making a
+pull request, or opening an \emph{issue} at \url{https://github.com/siefkenj/IBLLinearAlgebra}
+
+Content from other sources is reproduced here with permission and retains the
+Author's copyright. Please see the footnote of each page to verify the
+copyright.
+
+\newpage
+}
+
+
+\setcounter{page}{1}
+\pagestyle{siefken}
+
+
+\addcontentsline{toc}{chapter}{Lessons}
+
+	\section*{Dynamical Systems}
+
+	\begin{definition}[Dynamical System]
+		A pair $(T,X)$ is called a \emph{dynamical system} if
+		$X$ is a set and $T:X\to X$ is a function. In the context of
+		a dynamical system, $T$ is often called a \emph{transformation}.
+	\end{definition}
+
+	This definition is very general, and most things you encounter could be considered
+	a dynamical system. For example, if $X=\{\text{air molecuels and their positions on earth}\}$
+	and $T:X\to X$ to be the result of the wind blowing for one second, then $(T,X)$ is a dynamical system.
+	Alternatively, we could take the state of your computer's memory (RAM) to be a set and your processor executing a single
+	instruction to be a transformation.
+
+	It's hard to say much about general dynamical systems.
+	However, throughout the course, we will find ways to classify dynamical systems. Once we ``narrow the field'',
+	we'll be able to say lot's of interesting things.
+
+	\subsection*{Newton's Method}
+	Newton's method is a way of using tangent-line approximations to functions to estimate their roots.
+	It is an iterative procedure\footnote{ Whenever something is iterative, you should think dynamics!}.
+
+	\question
+	Let $f:\R\to\R$ be a differentiable function and let $T_f:\{\text{guesses}\}\to\{\text{guesses}\}$ be
+	a single application of Newton's method.
+
+	\begin{parts}
+		\item Find a general formula for $T_f$.
+		\item Let $f(x)=x(x-2)(x-3)$. Compute $T_f^n(4)$ for $n=0,1,2,3$.
+		\item Do you think
+			\[
+				\lim_{n\to\infty} T_f^n(4)
+			\]
+			converges? If so, what does it converge to? Can you prove your answer?
+	\end{parts}
+
+	\begin{definition}[Fixed Point]
+		Let $(T,X)$ be a dynamical system. A point $a\in X$ is called a \emph{fixed point} if
+		$T(a)=a$.
+	\end{definition}
+
+	\begin{definition}[Basin of Attraction]
+		Let $(T,X)$ be a dynamical system and let $x\in X$. The \emph{basin of attraction}
+		of $x$ is the set
+		\[
+			A_x=\Set{y\in X: \lim_{n\to\infty} T^ny=x}.
+		\]
+	\end{definition}
+	Eventually, we will talk about more general \emph{basins of attraction}, but for now we will limit ourselves to
+	that of a single point.
+
+	\question
+	Let $f(x)=x(x-2)(x-3)$ and let $T_f$ be the function that applies a single iteration of Newton's method (as before).
+	\begin{parts}
+		\item fsd
+	\end{parts}
+
+\end{document}
