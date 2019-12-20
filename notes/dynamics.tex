@@ -303,8 +303,8 @@ copyright.
 	\end{definition}
 
 	This definition is very general, and most things you encounter could be considered
-	a dynamical system. For example, if $X=\{\text{air molecuels and their positions on earth}\}$
-	and $T:X\to X$ to be the result of the wind blowing for one second, then $(T,X)$ is a dynamical system.
+	a dynamical system. For example, if $X=\{\text{air molecules and their positions on earth}\}$
+	and $T:X\to X$ is the result of the wind blowing for one second, then $(T,X)$ is a dynamical system.
 	Alternatively, we could take the state of your computer's memory (RAM) to be a set and your processor executing a single
 	instruction to be a transformation.
 
@@ -348,7 +348,34 @@ copyright.
 	\question
 	Let $f(x)=x(x-2)(x-3)$ and let $T_f$ be the function that applies a single iteration of Newton's method (as before).
 	\begin{parts}
-		\item fsd
+		\item Is $[3,4)\subseteq A_3$ for $T_f$? What about $[100, 1000]$? $(2,3)$?
+		\item Describe $A_4$.
+		\item Is $A_4$ connected?
+	\end{parts}
+
+	\newpage
+	\begin{definition}[Inverse Image]
+		Let $f:A\to B$ be a function and let $X\subseteq B$. The \emph{inverse image} of $X$
+		under $f$, denoted $f^{-1}(X)$, is
+		\[
+			f^{-1}(X)=\Set{x\in A\given f(x)\in X}.
+		\]
+	\end{definition}
+	Note: a function \emph{need not} to have inverse images. In fact, the idea of inverse images applies
+	to \emph{every} function.
+
+	\question
+	\begin{parts}
+		\item Let $g:\R\to\R$ be defined by $g(x)=x^2$. Find $g^{-1}(\Set{1})$,
+			$g^{-1}(\Set{4})$, $g^{-1}(\Set{0})$, $g^{-1}(\Set{-1})$, and $g^{-1}([3,4])$.
+		\item Let $f$ and $T_f$ be as before. (Recall, $f(x)=x(x-2)(x-3)$). Find $T_f^{-1}([3,4))$.
+		\item Define
+			\[
+				Q=\bigcup_{n\geq 0} T_f^{-n}([3,3.1))
+			\]
+			where $T_f^0$ is the identity function.
+
+			Is $Q=A_3$? Why or why not?
 	\end{parts}
 
 \end{document}

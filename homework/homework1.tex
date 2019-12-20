@@ -1,0 +1,187 @@
+\documentclass[letter]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+%%%
+% Set up the margins to use a fairly large area of the page
+%%%
+\oddsidemargin=.2in
+\evensidemargin=.2in
+\textwidth=6in
+\topmargin=0in
+\textheight=9.0in
+\parskip=.07in
+\parindent=0in
+\pagestyle{fancy}
+
+%%%
+% Set up the header
+%%%
+\newcommand{\setheader}[6]{
+	\lhead{{\sc #1}\\{\sc #2} ({\small \it \today})}
+	\rhead{
+		{\bf #3} 
+		\ifthenelse{\equal{#4}{}}{}{(#4)}\\
+		{\bf #5} 
+		\ifthenelse{\equal{#6}{}}{}{(#6)}%
+	}
+}
+
+\makeatletter
+\newcommand{\escapeus}{\begingroup\@makeother\_\@escapeus}
+\newcommand*{\@escapeus}[1]{#1\endgroup}
+\makeatother
+
+%%%
+% Set up some shortcut commands
+%%%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Proj}{\mathrm{proj}}
+\newcommand{\Perp}{\mathrm{perp}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\Null}{\mathrm{null}}
+\newcommand{\Rank}{\mathrm{rank}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\var}[1]{{$\langle$\it #1$\rangle$}}
+\newcommand{\Code}[1]{\texttt{\escapeus #1}}
+
+%%%
+% This is where the body of the document goes
+%%%
+\begin{document}
+	\setheader{MAT335}{Homework 1}{Due: 11:59pm January 26}{}{}{}
+
+	\begin{enumerate}
+		\item Let $(T,X)$ be a dynamical system.
+			\begin{enumerate}
+				\item Prove that if $x\in X$ is a fixed point of $T$, then 
+					the \emph{basin of attraction} of $x$, $A_x$, is non-empty.
+				\item Fix $y\in X$. Prove that if $R\subseteq A_y$, then $T^{-1}(R)\subseteq A_y$.
+					(Recall $T^{-1}(R) = \{w\in X: T(w)\in R\}$ is the \emph{inverse image
+					of $R$ under $T$}. $T$ is {\bfseries not necessarily} invertible.)
+			\end{enumerate}
+		\item You will prove that under certain conditions, Newton's method converges.
+
+		Let $f:\R\to\R$ be a twice differentiable function and suppose that $f(0)=0$ and that
+			$f'$ and $f''$ are positive on the interval $(0,a]$. Let $T_f$ be the function
+			that applies one iteration of Newton's method to its input.
+		\begin{enumerate}
+			\item Find a function $f$ satisfying the required properties and graph it. Does it look
+				like Newton's method will converge on $(0,a]$?
+
+			\item Show that if $x\in(0,a)$, then $0\leq T_f(x)< a$.
+
+			\item The \emph{Monotone Convergence Theorem} states that if $(a_n)$ is a sequence
+				of real numbers that is bounded below \emph{and} $a_{n+1}\leq a_n$, then 
+				$\displaystyle \lim_{n\to\infty} a_n$ exists and is a real number.
+
+				Use the Monotone Convergence Theorem to prove that $\displaystyle \lim_{n\to\infty}T^n_f(x)$
+				converges for all $x\in(0,a]$.
+			\item A point $y$ is called a \emph{fixed point} of a function $g$ if $g(y)=y$.
+
+				Fix $x_0\in(0,a]$, and define $\displaystyle \bm x=\lim_{n\to\infty} T_f(x)$. Show
+				that $\bm x$ is a fixed point of $T_f$.
+
+				\emph{Hint: You may use the fact that if $g$ is a continuous function, then
+				$g(\lim_{n\to\infty} a_n) = \lim_{n\to\infty} g(a_n)$ for any convergent sequence $(a_n)$.}
+			\item Prove that for any $x\in(0,a]$, $\displaystyle \lim_{n\to\infty} T^n_f(x)=0$.
+			\item Combine your results and explain why Newton's method will always converge for $f$ if
+				you pick an initial guess in $(0,a]$.
+		\end{enumerate}
+
+		\item Let's prove more about Newton's method! Suppose $f:\R\to\R$ is twice differentiable and
+			$f(0)=0$. Further, suppose $f'$ and $f''$ are both positive on the interval $[-a,a]$ (for
+			some $a>0$). 
+			\begin{enumerate}
+				\item Use a picture to argue that Newton's method might not converge for some $x\in[-a,a]$.
+				\item Show that there is some $b>0$ so that for $x\in[-b,a]$, Newton's method always converges.
+				\item Let $g:\R\to\R$ and define $h:\R\to\R$ by $h(t)=g(-t)$. Prove that if Newton's method
+					converges for $g$ with a starting point of $x_0$, then Newton's method converges
+					for $h$ with a starting point of $-x_0$.
+				\item Prove that if $f:\R\to\R$ satisfies $f(0)=0$, and $f' < 0$ and $f'' > 0$ on the interval
+					$[-a,a]$, then there exists a $b>0$ so that Newton's method converges for
+					$f$ on $[-a,b]$.
+			\end{enumerate}
+
+		\item Let $f:\R\to\R$ be defined by $f(x)=x^2-1$ and let $T_f$ be the function that applies Newton's method
+			to its inputs.
+			\begin{enumerate}
+				\item Find $T_f^{-1}(\{1,2,3\})$ (recall that $T_f^{-1}(\{1,2,3\})$ is the \emph{inverse image}
+					of the set $\{1,2,3\}$ under $T_f$. It is not the same as applying the \emph{inverse}
+					of $T_f$, since $T_f$ might not be invertible).
+				\item Is $T_f(x)$ defined for all $x\in \R$?
+				\item Find the largest possible domain, $X\subseteq \R$, so that $T_f:X\to X$ is a \emph{dynamical
+					system}.
+				\item Prove that $\lim_{n\to\infty} T^n_f(4)$ exists. What value is it?
+				\item Find all fixed points of $T_f$.
+				\item Fore each fixed point of $T_f$, find its \emph{basin of attraction}.
+			\end{enumerate}
+
+		\item Let $f:\R\to\R$ be defined by $f(x)=\frac{2}{1+x^2}-\frac{5}{4}$ and let $T_f$ be the function that applies Newton's method
+			to its inputs.
+			\begin{enumerate}
+				\item Is $0$ in the domain of $T_f$?
+				\item Find $T_f^{-1}(\{0\})$ (you can use a computer algebra system).
+				\item Find $T_f^{-2}(\{0\})$ (you can use a computer algebra system).
+				\item Describe largest possible domain, $X\subseteq \R$, so that $T_f:X\to X$ is a \emph{dynamical
+					system}. How many connected components does this domain consist of? (Use computers to help you!)
+			\end{enumerate}
+	\end{enumerate}
+
+\end{document}
