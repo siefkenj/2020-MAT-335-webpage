@@ -349,8 +349,8 @@ copyright.
 	Let $f(x)=x(x-2)(x-3)$ and let $T_f$ be the function that applies a single iteration of Newton's method (as before).
 	\begin{parts}
 		\item Is $[3,4)\subseteq A_3$ for $T_f$? What about $[100, 1000]$? $(2,3)$?
-		\item Describe $A_4$.
-		\item Is $A_4$ connected?
+		\item Describe $A_3$.
+		\item Is $A_3$ connected?
 	\end{parts}
 
 	\newpage
@@ -378,4 +378,163 @@ copyright.
 			Is $Q=A_3$? Why or why not?
 	\end{parts}
 
+	Using a computer, we can graph $A_0$, $A_2$, and $A_3$.
+
+	\begin{center}
+	\includegraphics[width=4in]{images/newt1.png}
+	\end{center}
+	
+	Zooming in around $x\approx 2.4588$:
+
+	\begin{center}
+	\includegraphics[width=4in]{images/newt2.png}
+	\end{center}
+
+	We've just seen our first {\bf fractal}! For now, we will define a \emph{fractal}
+	as a set with repeated patterns at all scales.
+
+	\newpage
+	\section*{Fractals}
+	Let's construct some famous fractals.
+
+	\question
+	Let $K_0$ be an equilateral triangle with sides of length $1$. 
+	Let $K_1$ be the result
+	of applying 
+	\mbox{
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1,0);
+	\end{tikzpicture} $\to$ 
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1/3,0) -- (1/2, .23) -- (2/3, 0) -- (1,0);
+	\end{tikzpicture}} to each side of $K_0$. Repeat this process to get $K_2$ from $K_1$, etc. and define
+	\[
+		K_{\infty} = \lim_{n\to\infty} K_n.
+	\]
+	\begin{parts}
+		\item Draw $K_0$, $K_1$, and $K_2$.
+		\item Find the perimeter of $K_0$, $K_1$, and $K_2$. Find a general
+			formula for the perimeter of $K_n$.
+		\item What is the perimeter of $K_{\infty}$? What is the area enclosed by
+			$K_{\infty}$?
+	\end{parts}
+	$K_\infty$ is called the \emph{Koch Snowflake}.
+
+	\question
+	Let $T_0$ be a filled-in equilateral triangle. To get $T_1$, $T_2$, etc., apply the substitution
+	rule
+	\mbox{
+	\begin{tikzpicture}[scale=.6]
+		\fill[blue, thick] (0,0)--(1,0) -- (.5, .866);
+	\end{tikzpicture} $\to$ 
+	\begin{tikzpicture}[scale=.6, even odd rule]
+		\fill[blue, thick] (0,0)--(1,0) -- (.5, .866)  (.5,0) -- (1/4,.433) -- (3/4, .433);
+	\end{tikzpicture}} to each (sub)triangle of $T_0$, $T_1$, etc..  Define $T_{\infty}$ to be the limit
+	of this process.
+	\begin{parts}
+		\item Draw $T_0$, $T_1$, and $T_2$.
+		\item Find a formula for the area of $T_n$.
+		\item Compute the area of $T_\infty$.
+		\item Is $T_\infty$ the empty set? Why or why not?
+	\end{parts}
+	$T_\infty$ is called \emph{Sierpinski's Triangle}.
+
+	\question
+	Let $C_0=[0,1]$ be the unit interval. Recursively define $C_i$ by the substitution
+	rule 
+	\mbox{
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1,0);
+	\end{tikzpicture} $\to$ 
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1/3,0)  (2/3, 0) -- (1,0);
+	\end{tikzpicture}}, which removes the middle $1/3$ of every interval. 
+	Define $C_\infty$ to be the limit of this process.
+
+
+	\begin{parts}
+		\item Compute the length of $C_n$.
+		\item Compute the length of $C_\infty$.
+	\end{parts}
+	$C_\infty$ is called the \emph{Cantor set}.
+
+
+	\bigskip
+	Our normal sense of measurement fails when it comes to these fractals. We need a new idea: \emph{similarity dimension}.
+
+	\subsection*{Dimension}
+
+	Dimension can be thought of as a relationship between scale and content\footnote{Here ``content'' refers to the ``stuff inside'' of an object.}.
+
+	\question
+	\begin{parts}
+		\item 
+		Let $\ell=[0,1)$, $2\ell=[0,2)$, $3\ell=[0,3)$, etc.. How many disjoint copies of $\ell$ does it take to
+		cover $n\ell$?
+		\item Let $S=[0,1)^2$, $2S=[0,2)^2$, etc.. How many disjoint copies of $S$ does it take to cover $nS$?
+		\item Let $C=[0,1)^3$, $2C=[0,2)^3$, etc.. How many disjoint copies of $C$ does it take to cover $nC$?
+		\item Based on the patterns you see, describe an algorithm that can be used to find the dimensions of $\ell$, $S$, and
+			$C$.
+		\item Let $T$ be the filled-in equilateral triangle. Apply your algorithm to $2T$.
+		\item Let $T_\infty$ be the Sierpinski triangle. Apply your algorithm to $2T_\infty$. Does the number you get
+			make sense?
+	\end{parts}
+
+	\begin{definition}[Similarity Dimension]
+		A set $Q\subseteq \R^n$ has \emph{similarity dimension} $d$ if there exists a $c\in \Z$
+		and $s\in \R^+$ satisfying
+		\[
+			d=\log_s(c)
+		\]
+		and $sQ$ ($Q$ scaled up by a factor of $s$) is covered by
+		$c$ copies of $Q$ (at most overlapping on their boundaries).
+
+	\end{definition}
+
+	\question
+	\begin{parts}
+		\item Compute the similarity dimension of a (a) a line segment, (b) the Cantor set, and (c) Sierpinski's triangle.
+		\item Compute the similarity dimension of the Koch snowflake.
+	\end{parts}
+
+	What about sets that aren't self-similar? 
+
+	\question
+	Let $K_\infty'$ be the ``Koch snowflake'' obtained with the substitution rule
+	\mbox{
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1,0);
+	\end{tikzpicture} $\to$ 
+	\begin{tikzpicture}[scale=.6]
+		\draw[blue, thick] (0,0)--(1/3,0) -- (1/2, -.23) -- (2/3, 0) -- (1,0);
+	\end{tikzpicture}}.
+
+	\begin{parts}
+		\item Find the perimeter and dimension of $K_{\infty}'$.
+		\item Let $K_{\text{strange}}$ be the ``Koch snowflake'' obtained by 
+		the rule \mbox{
+			\begin{tikzpicture}[scale=.6]
+				\draw[blue, thick] (0,0)--(1,0);
+			\end{tikzpicture} $\to$ 
+			\begin{tikzpicture}[scale=.6]
+				\draw[blue, thick] (0,0)--(1/3,0) -- (1/2, .23) -- (2/3, 0) -- (1,0);
+			\end{tikzpicture} or 
+			\begin{tikzpicture}[scale=.6]
+				\draw[blue, thick] (0,0)--(1/3,0) -- (1/2, -.23) -- (2/3, 0) -- (1,0);
+			\end{tikzpicture}
+			} chosen randomly at each stage.
+		What should the dimension of $K_{\text{strange}}$ be? Can you compute it's similarity dimension?
+	\end{parts}
+
+	We need a way to define dimension for shapes that aren't self-similar. Let's again work from
+	sets whose dimension we know: cubes.
+
+	\begin{definition}[Box Covering]
+		A $d$-dimensional \emph{box covering} of $X\subseteq \R^n$ is a collection $C=\Set{B_i}$ of 
+		$d$-dimensional cubes which satisfy
+		\begin{enumerate}
+			\item $B_i$ and $B_j$ ...
+		\end{enumerate}
+	\end{definition}
+	
 \end{document}
