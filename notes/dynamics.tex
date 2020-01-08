@@ -533,8 +533,28 @@ copyright.
 		A $d$-dimensional \emph{box covering} of $X\subseteq \R^n$ is a collection $C=\Set{B_i}$ of 
 		$d$-dimensional cubes which satisfy
 		\begin{enumerate}
-			\item $B_i$ and $B_j$ ...
+			\item if $i\neq j$, $B_i$ and $B_j$ intersect at most on their boundaries;
+			\item $B_i\cap X\neq \Set{}$ for all $i$;
+			\item $X\subseteq \bigcup_{i} B_i$.
 		\end{enumerate}
 	\end{definition}
+
+	\begin{definition}[Outer Measure]
+		The \emph{$d$-dimensional outer measure} of $X\subseteq \R^n$ is
+		\[
+			\lim_{n\to\infty} \text{volume}(C_n)
+		\]
+		where $C_n$ is a $d$-dimensional box covering of $X$ with cubes of side-length $1/n$.
+	\end{definition}
+
+	\question
+	Let $\ell\subseteq \R^3$ be the line segment from $\vec 0$ to $(1,0,0)$.
+	\begin{parts}
+		\item Find the $1$, $2$, and $3$-dimensional outer measures of $\ell$.
+		\item Does $\ell$ have a $0$-dimensional outer measure?
+		\item Let $T\subseteq \R^3$ be the filled in triangle with vertices $(0,0,0)$, $(1,0,0)$,
+			and $(0,1,0)$. Find the $1$, $2$, and $3$-dimensional outer measures of $T$.
+		\item Find the $1$-dimensional outer measure of the Cantor set.
+	\end{parts}
 	
 \end{document}
