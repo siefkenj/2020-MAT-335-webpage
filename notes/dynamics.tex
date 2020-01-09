@@ -361,7 +361,7 @@ copyright.
 			f^{-1}(X)=\Set{x\in A\given f(x)\in X}.
 		\]
 	\end{definition}
-	Note: a function \emph{need not} to have inverse images. In fact, the idea of inverse images applies
+	Note: a function \emph{need not} be invertible to have inverse images. In fact, the idea of inverse images applies
 	to \emph{every} function.
 
 	\question
@@ -378,12 +378,14 @@ copyright.
 			Is $Q=A_3$? Why or why not?
 	\end{parts}
 
+	\newpage
 	Using a computer, we can graph $A_0$, $A_2$, and $A_3$.
 
 	\begin{center}
 	\includegraphics[width=4in]{images/newt1.png}
 	\end{center}
 	
+	\newpage
 	Zooming in around $x\approx 2.4588$:
 
 	\begin{center}
@@ -462,6 +464,7 @@ copyright.
 	\bigskip
 	Our normal sense of measurement fails when it comes to these fractals. We need a new idea: \emph{similarity dimension}.
 
+	\newpage
 	\subsection*{Dimension}
 
 	Dimension can be thought of as a relationship between scale and content\footnote{Here ``content'' refers to the ``stuff inside'' of an object.}.
@@ -526,6 +529,7 @@ copyright.
 		What should the dimension of $K_{\text{strange}}$ be? Can you compute it's similarity dimension?
 	\end{parts}
 
+	\newpage
 	We need a way to define dimension for shapes that aren't self-similar. Let's again work from
 	sets whose dimension we know: cubes.
 
@@ -555,6 +559,42 @@ copyright.
 		\item Let $T\subseteq \R^3$ be the filled in triangle with vertices $(0,0,0)$, $(1,0,0)$,
 			and $(0,1,0)$. Find the $1$, $2$, and $3$-dimensional outer measures of $T$.
 		\item Find the $1$-dimensional outer measure of the Cantor set.
+	\end{parts}
+
+	What would it mean to have a fractional-dimensional outer measure? Let $B$ be a $d$-dimensional
+	box with side lengths $k$. Its volume is $k^d$. Divide the box in half along every dimension and 
+	each sub-box has volume $(k/2)^d=(1/2)^dk^d$, and so there must be $2^d$ sub-boxes.
+
+	What if there were fewer ``sub-boxes''?
+
+	\question
+	Let $C_\alpha$ be the Cantor-like set obtained by removing the middle $\alpha$ of each subinterval.
+	(I.e., the standard Cantor set is $C_{1/3}$.)
+	\begin{parts}
+		\item Find the number of boxes in a $1$-dimensional box-covering of $C_{0}$ 
+			(the interval) and  $C_{1/3}$ where the width of each box is $1/3$, $1/9$, $1/27$, etc..
+		\item Based on what you know about how many width-$k$ boxes it takes to fill $d$-dimensional space,
+			find a formula relating $d$, the number of boxes, and the width of the boxes.
+		\item Use your formula to estimate $d$ for $C_{1/3}$. How does this compare to the similarity-dimension
+			of $C_{1/3}$?
+	\end{parts}
+
+	\begin{definition}[Box-counting Dimension]
+		Let $X\subseteq \R^n$ and let $B\subseteq \R^n$ and let $B$ be a minimal-dimensional, minimally-sized box such
+		that $X\subseteq B$. The \emph{box-counting dimension} of $X$ is
+		\[
+			d=\lim_{n\to\infty} \frac{\log(\text{\# of sub-boxes of $B_n$ that intersect $X$})}{\log n},
+		\]
+		where $B_n$ is $B$ ``cut'' along each axis into $n$ equally-spaced slices.
+	\end{definition}
+
+	\begin{parts}[resume]
+		\item Find the box-counting dimension of $C_{1/3}$.
+		\item Find the box-counting dimension of the unit simplex in $\R^2$. I.e. $\Set{\vec v\in \R^2\given \vec v=
+			\alpha\xhat+\beta \yhat\text{ for some }\alpha,\beta\geq 0\text{ satisfying }\alpha+\beta \leq 1
+			}$
+		\item Intuitively, what should $\lim_{\alpha\to 0} \dim(C_\alpha)$ be? Find the box-counting and similarity
+			dimension of $C_\alpha$ and verify.
 	\end{parts}
 	
 \end{document}

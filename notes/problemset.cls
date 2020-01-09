@@ -56,7 +56,7 @@
 		headsep=0in, 
 		headheight=0in, 
 		left=.9in, 
-		bottom=.3in, 
+		bottom=.5in, 
 		footskip=0in,
 		marginparsep=5pt, 
 		marginparwidth=2in,
