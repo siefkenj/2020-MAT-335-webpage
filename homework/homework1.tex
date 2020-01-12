@@ -61,8 +61,8 @@ showstringspaces=false            %
 \oddsidemargin=.2in
 \evensidemargin=.2in
 \textwidth=6in
-\topmargin=0in
-\textheight=9.0in
+\topmargin=-.5in
+\textheight=9in
 \parskip=.07in
 \parindent=0in
 \pagestyle{fancy}
@@ -157,6 +157,9 @@ showstringspaces=false            %
 				\item Prove that if $f:\R\to\R$ satisfies $f(0)=0$, and $f' < 0$ and $f'' > 0$ on the interval
 					$[-a,a]$, then there exists a $b>0$ so that Newton's method converges for
 					$f$ on $[-a,b]$.
+				\item Prove that if $p:\R\to\R$ is a twice differentiable function satisfying $p(x_0)=0$ and 
+					$p'(x_0),p''(x_0)\neq 0$, then there is an open interval about $x_0$ on which Newton's
+					method will converge to $x_0$.
 			\end{enumerate}
 
 		\item Let $f:\R\to\R$ be defined by $f(x)=x^2-1$ and let $T_f$ be the function that applies Newton's method
@@ -181,6 +184,198 @@ showstringspaces=false            %
 				\item Find $T_f^{-2}(\{0\})$ (you can use a computer algebra system).
 				\item Describe largest possible domain, $X\subseteq \R$, so that $T_f:X\to X$ is a \emph{dynamical
 					system}. How many connected components does this domain consist of? (Use computers to help you!)
+			\end{enumerate}
+
+		\item Recall the \emph{box-counting dimension} from the course notes. Throughout this problem, if we
+			refer to the box-counting dimension of a set, you may assume that the box-counting dimension of that
+			set exists (i.e., the limit in the definition converges to a finite number).
+			\begin{enumerate}
+				\item Prove that the line segment from $\vec 0$ to $\sum \vec e_i$ in $\R^d$ has box-counting dimension $1$.
+				\item In the definition of the box-counting dimension of $X\subseteq \R^m$, 
+					the set $B$ is taken to be a minimal-dimensional, minimally
+					sized superset of $X$. Show that we can drop the both the
+					assumption that $B$ is minimally sized and that $B$ is of a minimal dimension. (\emph{Hint: 
+					prove these separately.})
+				\item Prove that box-counting dimension is \emph{translation invariant}. That is, if $Y$ is
+					a translation of $X\subseteq\R^m$, then $X$ and $Y$ have the same box-counting dimension.
+				\item Sets $X,Y\subseteq \R^m$ are called \emph{box-disjoint} if there exists disjoint $m$-dimensional
+					boxes $A,B$ so that $X\subseteq A$ and $Y\subseteq B$.
+					Prove that if $X,Y\subseteq \R^m$ are box-disjoint sets, then 
+					\[
+						\dim(X\cup Y) = \max\{\dim(X),\dim(Y)\},
+					\]
+					where $\dim$ stands for the box-counting dimension.
+				\item Show that
+					if $T:\R^m\to\R^m$ is a dilation given by $\vec x\mapsto k\vec x$ for some $k\in\Z^+$ 
+					and $X\subseteq \R^m$ is a set, then
+					the box-counting dimension of $X$ equals the box-counting dimension of $T(X)$.
+				\item Show that if $T:\R^m\to\R^m$ is a linear transformation the box-counting dimension of
+					$X\subseteq \R^m$ is bounded above by the box-counting dimension of $T(X)$.
+				\item Show that if $T:\R^m\to\R^m$ is an invertible linear transformation, then the box-counting
+					dimension of $X\subseteq\R^m$ and $T(X)$ are equal.
+			\end{enumerate}
+
+
+	\end{enumerate}
+
+
+	\subsection*{Python Problems}
+	\begin{enumerate}
+		\item Implement Newton's method for the function $f(x)=x(x-2)(x-3)$.
+			\begin{enumerate}
+				\item Functions \verb|f| and \verb|f_prime| are already provided. Implement the functions
+					\verb|T_f| and \verb|newt|. \verb|T_f| inputs a guess and applies one iteration
+					of Newton's method. \verb|newt| should repeatedly apply Newton's method until a root
+					is reached.
+
+					Since Newton's method may take an infinite number of iterations to converge, we 
+					won't require a point to actually reach a root. Instead, \verb|newt| will input a 
+					\emph{tolerance}. If $|f(x)|<\text{\emph{tolerance}}$, we will say that $x$ is 
+					close enough to a root, and we won't apply Newton's method any more.
+
+					However, we also know Newton's method can totally fail to converge! To prevent this
+					from causing an issue,
+					\verb|newt| also accepts a variable \verb|max_iterations|. Your \verb|newt| function
+					should apply \verb|T_f| at most \verb|max_iterations| number of times. If it hasn't found
+					a root by then, return \verb|np.nan|\footnote{ {\tt np.nan} stands for \emph{Not a Number}
+					and is a way to indicate there is no numeric solution in Python.}.
+				\item \verb|v_newt| is a \emph{vectorized} version of \verb|newt|, which means that when given an
+					array as input, it applies \verb|newt| to each element of the array. Execute the next cell
+					to plot the result of Newton's method and $f$.
+				\item Plot a version of the above graph that is ``zoomed-in'' to the boundary between two basins of attraction.
+				\item Make a plot showing just the basin of attraction of $3$ and the graph of $f$.
+			\end{enumerate}
+		\item Making Newton's method complex!
+			Complex numbers can be thought of as two-dimensional analogs of real numbers---they can be
+			added, multiplied, and divided. But, a complex number has two ``coordinates'' called the \emph{real part}
+			and the \emph{imaginary part}. Oftentimes we visualize complex numbers by plotting them in $\R^2$
+			with their real part along the $x$-axis and imaginary part along the $y$-axis.
+
+			Since Newton's method involves only basic operations that also work on complex numbers,
+			we can apply it to complex values and see what various basins of attraction look like as subsets of
+			the complex plane.
+			\begin{enumerate}
+				\item Since we are now dealing with 2d arrays which have \emph{way} more points in them,
+					it will be convenient to make a fast-and-cheap version of Newton's method. Numpy
+					has many pre-vectorized built in functions that work very fast. Among these
+					\var{array}\verb|*|\var{array}, \var{array}\verb|/|\var{array}, \var{number}\pm\var{array}
+					all perform very fast element-wise operations. This means the \verb|T_f| you created before
+					is already vectorized!
+
+					Create a \verb|newt2| function which inputs an array and a number of iterations
+					and applies \verb|T_f| to the input array the specified number of times\footnote{ Your original
+					function would stop iterating when you were sufficiently close to the root. This one will not,
+					but because of how fast Numpy functions are compared to Python functions, it will actually
+					be faster.}.
+				\item The \verb|newt2| function indiscriminately apples \verb|T_f|, and after it executes, some points may
+					have converged and some may not have. However, since we know the roots of $f$, we 
+					can nudge our output
+					to ensure it's correct.
+
+					Create a function \verb|clamped_newt| which applies \verb|newt2| to its input 
+					(with the specified number of iterations) and then returns values that have been ``clamped''
+					to $0$, $2$, or $3$. That is, every output value in the resulting array should be $0$, $1$, or $2$,
+					depending on which number it is closest to.
+
+				\item Plot the basins of attractions of $f$ in the complex plane in the rectangle with lower-left corner
+					$-1/2-i$ and upper-right corner $7/2+i$. 
+
+					\emph{Notes:}
+					\begin{itemize}
+						\item Python uses {\tt j} for imaginary numbers
+					instead of $i$, but you can't use it alone. For example, to get the number $i$, you must
+							write {\tt 1j} in Python\footnote{ Since {\tt i} is so commonly used
+							as a loop variable in programming, most programming languages use {\tt j}
+							for complex numbers.}.
+						\item If you get a {\tt TypeError: Image data cannot be converted to float}
+					error, you're probably asking {\tt imshow} to graph a complex image. It only knows how to graph
+					real images; you might try calling {\tt np.real(...)} on your data first.
+					\end{itemize}
+
+				\item Make a new plot that is zoomed into an interesting region.
+			\end{enumerate}
+		\item Investigate another Newton fractal of your choosing. Some interesting functions you might try: $f(x)=sin(x^2)-1$,
+			$f(x)=x^3-1$, $f(x)=(\tfrac{2}{1+x^2}-\tfrac{5}{4})(1+x^{1.5})$. Produce two plots of your Newton fractal, one zoomed
+			in and one zoomed out.
+
+			Some things to keep in mind: \begin{itemize}
+				\item You can redefine \verb|f| and \verb|f_prime| and \verb|newt2| will just work.
+			However \verb|clamped_newt| will no longer give you the information you want, since the roots have changed. 
+				\item {\tt imshow} can only plot reals, so use {\tt np.real} and {\tt np.imag} appropriately.
+				\item Wild functions tend to have wild values. If you see a solid color, there may still be a fractal buried in there,
+				but it is being washed out by very large numbers in your array. Try eliminating large (and large negative) numbers.
+				\item If you want to use non-rational functions, use their Numpy versions. E.g., {\tt np.sin} and {\tt np.exp}.
+					That way they will be automatically vectorized.
+				\item (Optional) If you want to learn another package, {\tt sympy} can symbolically represent math in Python (and
+					compute derivatives for you). {\tt sympy.utilities.lambdify} can be used to convert a Sympy
+					function into a Numpy function. Google for documentation to see some examples.
+			\end{itemize}
+		\item {\bf The Cantor set} 
+			\begin{enumerate}
+				\item The Jupyter notebook includes a \verb|cantorize| function which takes in a list
+				of line segments and removes the middle third from each. Review and execute this function and its associated cells
+				(which will produce a picture of the Cantor set).
+				\item We can use Numpy to estimate the number of ``boxes'' a sequence of line segments intersects.
+					The \verb|render_segments_to_array| function inputs a list of line segments, an array,
+					and an \verb|extent|, and ``draws'' the line segments to the array by filling in $1$s
+					in every coordinate of the array the line segments touch.
+
+					Using this function (and other tools at your disposal),
+					numerically estimate the box-counting dimension of the Cantor set.
+			\end{enumerate}
+		\item {\bf The Koch Snowflake} 
+			\begin{enumerate}
+				\item Implement a \verb|kochize| function that inputs a list of segments and applies the Koch snowflake
+					substitution to each of them. Graph one side of $K_4$ (the Koch snowflake after 4 substitutions).
+
+					For reference, \verb|kochize| applied to {\tt [((0, 0), (1, 0))]} should produce
+					{\tt  [((0, 0), (0.3333333333333333, 0.0)), ((0.3333333333333333, 0.0), (0.5, 0.28867513459481287)), ((0.5, 0.28867513459481287), (0.6666666666666666, 0.0)), ((0.6666666666666666, 0.0), (1, 0))]}.
+				\item Make a plot of the full Koch snowflake (all sides of it, not just the top side).
+				\item Estimate the box-counting dimension of the Koch snowflake. How does this compare with
+					its similarity dimension?
+			\end{enumerate}
+		\item {\bf The Strange Koch Snowflake} 
+			\begin{enumerate}
+				\item Implement a \verb|strange_kochize| function that inputs a list of segments and applies the Koch snowflake
+					substitution to each of them except that it randomly chooses (with 50/50 probability) 
+					to point the ``spike'' up or
+					down along each segment. Graph the 6$^\text{th}$ iteration of the strange Koch snowflake.
+					
+					\emph{Notes:}
+					\begin{itemize}
+						\item In Numpy, you can use \verb|np.random.uniform()| to generate
+					a uniform random number in the interval $[0,1]$. So, to execute a statement 50\% of the time,
+					you could say, \verb|if np.random.uniform() < .5: ...|.
+
+						\item Every time you re-run your Python code, new random numbers will be generated (and your picture will
+					change). To ``fix'' the random numbers, run \verb|np.random.seed(10)| before you run your code (10 can
+					be replaced with any number of your choosing).
+					\end{itemize}
+
+				\item Estimate the box-counting dimension of the strange Koch snowflake. If you changed the probability of 
+					a spike pointing ``up'' to 75/25, would this change the dimension of the resulting fractal?
+					Support your claim with evidence.
+			\end{enumerate}
+		\item (Optional) {\bf Sierpinski's Triangle}. View the \verb|matplotlib.collections| documentation and figure out
+			how to draw polygons. Then make a \verb|sierpinskinate| function which applies the Sierpinski triangle
+			substitution. Estimate the box-counting dimension of the Sierpinski triangle.
+		\item {\bf Our favorite $\bm f$}. Recall $f(x)=x(x-2)(x-3)$.
+			\begin{enumerate}
+				\item The function \verb|find_edges| will input a 2d array and output an array of 0s and 1s depending
+					on whether the input array differs when shifting one index to the right, down, or diagonal. Use
+					this function to graph the boundary of the Newton fractal given by $f(x)=x(x-2)(x-3)$.
+
+					\emph{Notes:}
+					\begin{itemize}
+						\item \verb|find_edges| returns 1 if there is not literal equality of values. For example,
+					if one pixel of your image has a value of $3.00001$ and the next has a value of
+							$3.00002$, \verb|find_edges| will assume
+					there is a boundary there. So: either modify \verb|find_edges| to not be so strict, or make sure
+					you have clamped the values in the array that stores your Newton fractal.
+					\end{itemize}
+				\item Estimate the fractal dimension of the above Newton fractal's boundary.
+				\item Graph a Newton fractal whose boundary has higher dimension than the one generated by $f(x)=x(x-2)(x-3)$.
+					Back up your claim with evidence.
 			\end{enumerate}
 	\end{enumerate}
 
