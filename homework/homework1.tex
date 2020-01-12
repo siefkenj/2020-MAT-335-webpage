@@ -192,8 +192,8 @@ showstringspaces=false            %
 			\begin{enumerate}
 				\item Prove that the line segment from $\vec 0$ to $\sum \vec e_i$ in $\R^d$ has box-counting dimension $1$.
 				\item In the definition of the box-counting dimension of $X\subseteq \R^m$, 
-					the set $B$ is taken to be a minimal-dimensional, minimally
-					sized superset of $X$. Show that we can drop the both the
+					the set $B$ is taken to be a minimal-dimensional, minimally-sized 
+					superset of $X$. Show that we can drop the both the
 					assumption that $B$ is minimally sized and that $B$ is of a minimal dimension. (\emph{Hint: 
 					prove these separately.})
 				\item Prove that box-counting dimension is \emph{translation invariant}. That is, if $Y$ is
@@ -209,17 +209,27 @@ showstringspaces=false            %
 					if $T:\R^m\to\R^m$ is a dilation given by $\vec x\mapsto k\vec x$ for some $k\in\Z^+$ 
 					and $X\subseteq \R^m$ is a set, then
 					the box-counting dimension of $X$ equals the box-counting dimension of $T(X)$.
-				\item Show that if $T:\R^m\to\R^m$ is a linear transformation the box-counting dimension of
+				\item Show that if $T:\R^m\to\R^m$ is a linear transformation, the box-counting dimension of
 					$X\subseteq \R^m$ is bounded above by the box-counting dimension of $T(X)$.
 				\item Show that if $T:\R^m\to\R^m$ is an invertible linear transformation, then the box-counting
 					dimension of $X\subseteq\R^m$ and $T(X)$ are equal.
+				\item (Optional) Show that if $\varphi:\R^m\to\R^m$ is a differentiable function
+					with continuous derivative
+					and $\det(D\varphi)\neq 0$, then the box-counting dimension of $X\subseteq \R^m$ and
+					$\varphi(X)$ are equal.
 			\end{enumerate}
 
 
 	\end{enumerate}
 
 
-	\subsection*{Python Problems}
+	\subsection*{Programming Problems}
+	For the programming problems, please use the Jupyter notebook available at
+
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework1-exercises.ipynb}
+
+	Make sure to comment your code and use ``Markdown'' style cells to explain what your answers.
+
 	\begin{enumerate}
 		\item Implement Newton's method for the function $f(x)=x(x-2)(x-3)$.
 			\begin{enumerate}
@@ -257,7 +267,7 @@ showstringspaces=false            %
 			\begin{enumerate}
 				\item Since we are now dealing with 2d arrays which have \emph{way} more points in them,
 					it will be convenient to make a fast-and-cheap version of Newton's method. Numpy
-					has many pre-vectorized built in functions that work very fast. Among these
+					has many pre-vectorized built-in functions that work very fast. Among these
 					\var{array}\verb|*|\var{array}, \var{array}\verb|/|\var{array}, \var{number}\pm\var{array}
 					all perform very fast element-wise operations. This means the \verb|T_f| you created before
 					is already vectorized!
@@ -283,12 +293,13 @@ showstringspaces=false            %
 					\emph{Notes:}
 					\begin{itemize}
 						\item Python uses {\tt j} for imaginary numbers
-					instead of $i$, but you can't use it alone. For example, to get the number $i$, you must
+							instead of $i$, but you can't use `{\tt j}' alone. For example, to get the number $i$, you must
 							write {\tt 1j} in Python\footnote{ Since {\tt i} is so commonly used
 							as a loop variable in programming, most programming languages use {\tt j}
 							for complex numbers.}.
 						\item If you get a {\tt TypeError: Image data cannot be converted to float}
-					error, you're probably asking {\tt imshow} to graph a complex image. It only knows how to graph
+							error, you're probably asking {\tt imshow} to graph a complex image. {\tt imshow}
+							only knows how to graph
 					real images; you might try calling {\tt np.real(...)} on your data first.
 					\end{itemize}
 
