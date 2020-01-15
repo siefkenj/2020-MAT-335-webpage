@@ -198,7 +198,7 @@
 %%\voidenvironment{notes}
 %%\voidenvironment{displayonly}
 
-
+\renewcommand{\P}{\mathbb{P}}
 
 
 \begin{document}
@@ -598,6 +598,103 @@ copyright.
 			dimension of $C_\alpha$ and verify.
 	\end{parts}
 	
+	Box-counting dimension is difficult to compute exactly, but it's useful for approximations. Computers are
+	pretty good at counting boxes!
+
+	\newpage
+	\subsection*{Markov Chains}
+	
+	\begin{definition}[Transition Matrix]
+		Let $\mathcal G$ be a directed graph with vertices $\Set{1,\ldots, n}$.
+		A \emph{transition matrix} for $\mathcal G$ is an $n\times n$ matrix $A=[a_{ij}]$ where
+		\[
+			a_{ij} = \begin{cases}
+				1 &\text{ if there is an edge from $i$ to $j$}\\
+				0 &\text{ otherwise}
+			\end{cases}.
+		\]
+	\end{definition}
+
+	\question
+	The map shows the direct, one-way flights offered by the Pacific
+	Rim air shipping company.
+	\includegraphics[height=2.5in]{images/flight_map.pdf}
+	We can think of their flight map as a graph.
+
+
+	\begin{parts}
+		\item Write down a \emph{transition matrix} $A$ for the above graph.
+		\begin{enumerate}
+			\item What do the diagonal entries tell you about the available flights?
+			\item Should $a_{ij} = a_{ji}$? Explain.
+		\end{enumerate}
+		\item Write down a matrix $B=[b_{ij}]$ where the entry $b_{ij}$ indicates the 
+		number of ways to take exactly two flights from city $i$ to city $j$.
+		\begin{enumerate}
+			\item Compute $A^2$ and compare with $B$.
+			\item What information does the $1$st row of $A$ give you about flights?
+			\item What information does the $2$nd column of $A$ give you about 
+			flights?
+			\item Based upon your last two answers what does the $1,2$ entry of 
+			$A^2$ tell you about flights?
+		\end{enumerate}
+		\item Compute $A^3$. What does it tell you about shipping routes?
+		\item A package with a lost tracking number is getting kicked around from route to route!
+			Each time it lands, it is randomly (and with equal probability)
+			put on another flight.
+			After several weeks (and 100s of flights), the package is finally noticed.
+				Where is it most likely to be?
+	\end{parts}
+
+
+	\begin{definition}[Markov Chain]
+		Given a graph $G$, a \emph{stationary Markov chain on $G$}, is a random process,
+		denoted $X_1,X_2,\ldots$ where $X_i$.
+		
+	\end{definition}
+
+
+
+	To really understand this situation, we need to know some things about \emph{probability theory}.
+	A central object of study in probability theory are \emph{random variables}.
+
+	\begin{definition}[Random Variable]
+		Let $Q$ be a set. A \emph{random variable with state space $Q$} is a function $X:[0,1]\to Q$.
+	\end{definition}
+
+	We think of a random variable $X:[0,1]\to Q$ as a ``to be determined quantity''. Of course, if $\omega\in [0,1]$, then
+	$X(\omega)\in Q$ is an actual element of the state space. It would be incorrect to write ``$X\in Q$''.
+
+	\begin{definition}[Probability Function]
+		The \emph{probability function} on $[0,1]$, is a function
+		\[
+			\P:\Set{\text{measureable subsets of $[0,1]$}}\to[0,1]
+		\]
+		that assigns every measurable subset of $[0,1]$ a number corresponding to
+		the ``percentage'' of $[0,1]$ it occupies.
+	\end{definition}
+
+	We often call elements of the domain of $\P$ \emph{events} instead of calling them sets.
+
+	\question
+		Let $X$ and $Y$ be random variables with state space $\Set{H,T}$ defined by 
+		\[
+			X(\omega)=\begin{cases}
+				H&\text{ if $\omega > 1/2$ }\\
+				T&\text{ otherwise}
+			\end{cases}\qquad
+			Y(\omega)=\begin{cases}
+				H&\text{ if $\omega > 2/3$ }\\
+				T&\text{ otherwise}
+			\end{cases}\qquad
+		\]
+	\begin{parts}
+		\item By writing $X = H$, we mean the event (set) $X^{-1}(H)=\Set{\omega\in[0,1]\given X(\omega)=H}$.
+
+			What is $\P(X=H)$ and $\P(X=T)$? If you were given a fair coin, what would the probability
+			of getting heads or tails be?
+	\end{parts}
+
 
 % West Coastline of Britain
 	% In log/log   (measure stick length in log_10(km), measured length in log_10(km))
