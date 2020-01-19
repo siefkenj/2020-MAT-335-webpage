@@ -749,7 +749,8 @@ copyright.
 			resulting distribution after $1$, $2$, and $3$ steps along $\mathcal M$. 
 	\end{parts}
 
-	\begin{definition}[Iterated Function System]
+	\newpage
+	\begin{definition}[Iterated Function System (IFS)]
 		An \emph{iterated function system} with functions $(f_1,\ldots,f_n)$
 		and transition probabilities $(p_1,\ldots,p_n)$ 
 		is a stationary Markov chain where transitions are given by the rule
@@ -762,6 +763,35 @@ copyright.
 			\end{cases}
 		\]
 	\end{definition}
+
+	\begin{definition}[Invariant Set]
+		Let $\mathcal I$ be an iterated function system with functions 
+		$(f_1,\ldots,f_n)$ and non-zero probabilities $(p_1,\ldots,p_n)$.
+		The set $X$ is called an \emph{invariant set} for $\mathcal I$ if
+		\[
+			X=\bigcup_i f_i(X).
+		\]
+	\end{definition}
+
+	\question
+	Let $\mathcal I$ be the iterated function system with probabilities $(1/2,1/2)$
+	and functions $(f_1:[0,1]\to[0,1],f_2:[0,1]\to[0,1])$ given by
+	$f_1(x)=x/3$ and $f_2(x)=x/3+2/3$.
+	\begin{parts}
+		\item Find an invariant set for $\mathcal I$.
+		\item Is the Cantor set an invariant set for $\mathcal I$?
+		\item Is there a larger invariant set for $\mathcal I$ than the Cantor set? Why or why not?
+		\item If the probabilities for $f_1$ and $f_2$ change, will that affect the invariant sets?
+	\end{parts}
+
+	\question
+	Define $f_{\vec a}:[0,1]^2\to[0,1]^2$ by $f_{\vec a}(\vec x)=\vec x/2 + \vec a$. Let $\mathcal F$ be
+	the iterated function system with functions $(f_{\vec 0}, f_{(1/2,0)}, f_{(0,1/2)})$ and equal probabilities.
+	\begin{parts}
+		\item Draw a maximal invariant set for $\mathcal F$.
+		\item Can you create an iterated function system so that the Sierpinski triangle is
+			an invariant set? If so, do it!
+	\end{parts}
 
 
 
