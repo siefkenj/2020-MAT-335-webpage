@@ -485,7 +485,7 @@ copyright.
 
 	\begin{definition}[Similarity Dimension]
 		A set $Q\subseteq \R^n$ has \emph{similarity dimension} $d$ if there exists a $c\in \Z$
-		and $s\in \R^+$ satisfying
+		and $s\in \R_{\geq 1}$ satisfying
 		\[
 			d=\log_s(c)
 		\]
@@ -546,10 +546,12 @@ copyright.
 	\begin{definition}[Outer Measure]
 		The \emph{$d$-dimensional outer measure} of $X\subseteq \R^k$ is
 		\[
-			\lim_{n\to\infty} \text{volume}(C_n)
+			\lim_{n\to\infty} \inf_{C_n}\  \text{volume}(C_n)
 		\]
 		where $C_n$ is a $d$-dimensional box covering of $X$ with cubes of side-length $1/n$.
 	\end{definition}
+	You should think of $\inf_{C_n}\  \text{volume}(C_n)$ as the ``smallest possible box covering of size $1/n$ that
+	still covers the set''.
 
 	\question
 	Let $\ell\subseteq \R^3$ be the line segment from $\vec 0$ to $(1,0,0)$.
@@ -619,7 +621,7 @@ copyright.
 	The map shows the direct, one-way flights offered by the Pacific
 	Rim air shipping company.
 	\includegraphics[height=2.5in]{images/flight_map.pdf}
-	We can think of their flight map as a graph.
+	We can think of their flight map as a graph (in the graph-theory sense).
 
 
 	\begin{parts}
@@ -647,14 +649,125 @@ copyright.
 	\end{parts}
 
 
+	\newpage
 	\begin{definition}[Markov Chain]
 		Given a graph $G$, a \emph{stationary Markov chain on $G$}, is a random process,
-		denoted $X_1,X_2,\ldots$ where $X_i$.
-		
+		denoted $X_1,X_2,\ldots$ where $X_i$ indicates the location on the graph at the $i$th
+		step and the probability distribution of $X_i$ is {\it completely determined} by the value
+		of $X_{i-1}$.
+	\end{definition}
+	Some people call stationary Markov chains ``memoryless'' processes because what happened more than one
+	step prior has no affect on what happens in the next step.
+
+	\question
+	Consider the following directed graph with transition probabilities labeled.
+	\begin{center}
+	\begin{tikzpicture}[mainnode/.style={circle,fill=blue!20,minimum size=1em,inner sep=3pt]}]
+
+	    \node[mainnode] (1) at (0,0) {$a$};
+	    \node[mainnode] (2) at (2, 0)  {$b$};
+
+		\path (1) edge[->, loop] node[above] {1/2} (1) 
+		(1) edge[->, bend left] node[above] {1/2}(2) 
+		(2) edge[->, bend left] node[below] {1}(1);
+	\end{tikzpicture}
+	\end{center}
+
+	\begin{parts}
+		\item Find a transition matrix, $T$, for the graph.
+		\item Find a matrix $P_1$ whose $i,j$ entry represents the probability
+			of transitioning from state $i$ to state $j$ in exactly one step.
+		\item Find a matrix $P_2$ whose $i,j$ entry represents the probability
+			of transitioning from state $i$ to state $j$ in exactly two steps.
+		\item How do $P_2$ and $P_1^2$ relate?
+		\item Does $\lim_{n\to\infty} P_1^n$ exist? If so, what is it?
+	\end{parts}
+
+	\begin{definition}[Stochastic Matrix]
+		A vector $\vec v\in \R^n$ is called a \emph{probability vector} if its entries are non-negative and sum to
+		one. A matrix is called a \emph{stochastic matrix} if its columns are probability vectors.
+	\end{definition}
+
+	In the context of Markov chains, we also refer to stochastic matrices as \emph{transition} matrices\footnote{ Yes, this word
+	is doing double duty!}.
+
+	\question
+	You're a picky eater. You have meals of healthy food and dessert, but you never have healthy food twice in a row.
+	Each time you eat dessert, you flip a weighted coin to decide what meal to eat next. Let $p$ represent the weight of
+	the coin.
+	\begin{parts}
+		\item Are your eating habits described by a Markov chain? Why or why not?
+		\item Draw a graph representing this situation.
+		\item Your friend visits you for New Years and sees your having a healthy dinner. You lose touch
+			after that, but bump into each other at a restaurant six years later. What type of meal are
+			you most likely to be eating? Does this depend on $p$?
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\item Is a Markov chain a dynamical system? Why or why not?
+		\item Consider the Markov chain with states $\Set{a,b}$
+			given by the transition matrix $\mat{1/2&1\\1/2&0}$. Given 
+			that you start in state $a$, give probability vectors indicating the 
+			probability of being in a particular state after $0$, $1$, $2$, and $3$ steps
+			along the Markov chain.
+		\item Can this Markov chain be \emph{modeled} by a dynamical system? If so, describe
+			such a model.
+	\end{parts}
+
+	\newpage
+	\subsection*{Iterated Function Systems (IFS)}
+
+	\begin{definition}[Realization of a Markov Chain]
+		Given a Markov Chain $\mathcal M = (X_1,X_2,\ldots)$ with state space $S$, a \emph{realization} 
+		of $\mathcal M$ is a sequence of states whose transitions are allowed by the Markov chain. I.e.,
+		an allowed element of $S^{\N}$.
+
+		A realization $\vec r\in S^{\N}$ is called \emph{generic} for $\mathcal M$
+		if the transition probabilities for $\mathcal M$ can be recovered from $\vec r$ by
+		averaging.
+	\end{definition}
+	
+	\question
+	Consider the Markov chain $\mathcal M$ with state space $[0,1]$ and the transition rule
+	\[
+		X_{i+1} =\begin{cases}
+			X_i/3 &\text{ with probability $1/2$}\\
+			X_i/3 + 2/3 &\text{ with probability $1/2$}
+		\end{cases}
+	\]
+	\begin{parts}
+		\item Using a random number generator, write down the initial segment (up to 4 transitions) of two
+		different realizations of $\mathcal M$.
+		\item Let $\vec r=(r_0,r_1,\ldots)$ be a realization of $\mathcal M$. Is it possible that
+			$\lim_{i\to\infty} r_i$ exists? Why or why not?
+		\item Let $\vec s=(s_0,s_1,\ldots)$ be a realization for $\mathcal M$ that is generic. 
+			Is it possible that
+			$\lim_{i\to\infty} r_i$ exists? Why or why not?
+		\item Can $\mathcal M$ be modeled by a dynamical system? If so, describe the model.
+		\item Suppose we start off with a uniform distribution on $[0,1]$. Draw the
+			resulting distribution after $1$, $2$, and $3$ steps along $\mathcal M$. 
+	\end{parts}
+
+	\begin{definition}[Iterated Function System]
+		An \emph{iterated function system} with functions $(f_1,\ldots,f_n)$
+		and transition probabilities $(p_1,\ldots,p_n)$ 
+		is a stationary Markov chain where transitions are given by the rule
+		\[
+			X_{i+1} =
+			\begin{cases}
+				f_1(X_i) &\text{ with probability $p_1$}\\
+				f_2(X_i) &\text{ with probability $p_2$}\\
+				& \vdots 
+			\end{cases}
+		\]
 	\end{definition}
 
 
 
+
+
+	\newpage
 	To really understand this situation, we need to know some things about \emph{probability theory}.
 	A central object of study in probability theory are \emph{random variables}.
 

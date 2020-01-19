@@ -1,0 +1,350 @@
+% !TeX program = lualatex
+\documentclass[12pt]{article}
+%\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage[letterpaper,
+	    top=1.5cm,
+	    left=1.35cm,
+	    width=18.2cm,
+	    bottom=2cm
+	    ]{geometry}
+\usepackage{color,hyperref}
+\usepackage{amsfonts, mathtools}
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage{multirow,bigdelim}
+\usepackage{changepage}
+\usepackage{graphicx}
+
+\definecolor{deepblue}{rgb}{0,.2,.5}
+\definecolor{darkblue}{rgb}{0,.1,.3}
+\definecolor{deeppurple}{rgb}{.36,.11,.56}
+\definecolor{myblue}{rgb}{.01,0.21,0.71}
+\definecolor{mypurple}{rgb}{.44,0.27,0.51}
+\definecolor{gray}{rgb}{.5, .5, .5}
+\definecolor{darkyellow}{rgb}{.46, .49, 0}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+
+\hypersetup{pdftex,  % needed for pdflatex
+  breaklinks=true,  % so long urls are correctly broken across lines
+  colorlinks=true,
+  urlcolor=deepblue,
+  %linkcolor=darkblue,
+  %citecolor=darkgreen,
+  }
+
+  \usepackage{fontspec}
+
+  %\fontspec{Fontin}[
+  %	  SmallCapsFont={}
+  %]
+
+  \defaultfontfeatures{Ligatures=TeX} % To support LaTeX quoting style
+  %\setmainfont{fonts/Fontin-Sans-R-45b.otf}[
+%	BoldFont = Fontin-Sans-B-45b.otf,
+%	ItalicFont = Fontin-Sans-I-45b.otf,
+%	BoldItalicFont = Fontin-Sans-BI-45b.otf,
+%	SmallCapsFont = Fontin-Sans-SC-45b.otf
+ % ]
+  %\setsansfont{Fontin Sans}
+  \setromanfont{Linux Libertine}
+  \setsansfont{GeosansLight}
+
+
+\def\mydot{\textcolor{deepblue}{\rule{1ex}{1ex}}}
+\newlength\sidebarwidth
+\setlength\sidebarwidth{3cm}
+\newcommand{\topic}[3][]%
+	 {\pagebreak[2]%
+	 \vspace{.2cm}
+	 \begin{minipage}{\textwidth}
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+         \raggedleft \bf\sc 
+	 \color{myblue}{\large #2}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 \nopagebreak{\color{myblue}%
+		    \rule{0pt}{\baselineskip}%
+		    \rule{\linewidth}{2.5pt}%
+		    \llap{\raisebox{.3\baselineskip}{\sf #1}}%
+		    \vspace*{.1\baselineskip}%
+		    }%
+	 #3%
+	 \end{minipage}
+	 \end{minipage}}
+
+	 \newcommand{\subtopic}[3][]
+	 {\begin{minipage}{\textwidth}
+	 \vspace*{.4\baselineskip}
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+	 % Super posh: using semi-bold condensed fonts. Works only with
+	 % lmodern
+         \raggedleft {\sf\fontseries{sbc}\selectfont #2}
+	 %{\small\sl\\[-0.2\baselineskip] #1}
+         {\\[-0.2\baselineskip] \textcolor{gray}{\footnotesize #1}}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 #3%
+	 \end{minipage}%
+	 \vspace*{.2\baselineskip plus 1\baselineskip minus
+	 .2\baselineskip}%
+	 \end{minipage}}
+
+\newenvironment{mywidth}{\begin{adjustwidth}{\sidebarwidth}{}}{\end{adjustwidth}}
+
+	\newcommand{\onlinehw}[1]{{\footnotesize \color{darkyellow} Online Homework: #1}}
+	\newcommand{\writtenhw}[1]{{\footnotesize \color{burgundy} Written Homework: #1}}
+
+\parskip = 0.1in
+\parindent = 0.0in
+
+\titlespacing*{\subsection}{0pt}{.1in}{0in}
+
+
+\newcommand{\tutorialdate}{Monday, Sep.~16}
+\newcommand{\midtermone}{Friday, October 4 from 5:10--7:00pm}
+\newcommand{\midtermtwo}{Friday, November 1 from 5:10--7:00pm}
+\newcommand{\PARI}{September 25 at 11:59pm}
+\newcommand{\PARII}{October 23 at 11:59pm}
+\newcommand{\PARIII}{November 30 at 11:59pm}
+
+\begin{document}
+	{
+		\begin{minipage}[t]{\textwidth}
+			\color{myblue}\sc %{\Huge Mat 335}
+			{\huge Mat 335 Essay Instructions}
+			\hfill Spring 2020
+
+			\vspace{-8pt}
+			\color{myblue}{\rule{\columnwidth}{3pt}}
+
+			\vspace{.2cm}
+		\end{minipage}
+	}
+
+	\vspace{.2cm}
+	
+
+	\small
+	\hspace{\sidebarwidth}\begin{minipage}[t]{\textwidth - \sidebarwidth}
+	{
+		\parskip=.1cm
+		You’re going to write a series of short essays that
+		will, in the end, be combined into a longer essay
+		which explains Chaos, Dynamics, Fractals, and their
+		interconnections to a general audience.
+
+		Your essays should:
+		\vspace{-.4cm}
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item Have a \emph{perspective}: Do you think fractals are fundamental facts of nature? Do you think the “Butterfly effect” is a misused term in pop-culture? etc.
+			\item \emph{Introduce} and \emph{explain} the topics at hand (fractals, chaos and dynamics).
+			\item Not get into the nitty-gritty mathematical details and/or proofs.
+		\end{itemize}
+		In general, you will have to do independent research to
+		get a broader perspective on each essay topic. In class we
+		dive deep into specific examples, but there’s a lot more
+		out there, and you don’t need to write about the same
+		stuff we’ve done in class!
+
+		The hardest part of the
+		final essay will be developing a common theme. The goal
+		is to write a single coherent essay on chaos, fractals
+		and dynamics---having a theme will provide a means to
+		relate the topics and unify your three short essays. Some
+		examples of themes (in the form of essay titles) include:
+		\vspace{-.3cm}
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item “From simple definitions, complex behaviour can arise”
+			\item “To study the clouds, we need new ways of measuring”
+			\item “In the 1800’s, we thought we knew it all---but that didn’t last long”
+		\end{itemize}
+		
+		Your essay may feature equations, though they should be
+		simple and used sparingly. You may (and should) include
+		figures to aid your explanation. Any sources you use
+		(including Wikipedia) should be cited with footnotes or
+		endnotes.
+		
+		Your essays \text{must be typed} in \LaTeX{} and should
+		be aimed at a non-math audience. You are expected to
+		incorporate the feedback you receive on your short essays
+		into your final essay.
+	}
+	\end{minipage}
+	
+	\topic{Audience}{
+		The main focus of these essays is to communicate sophisticated mathematical ideas to a non-mathematical (but intelligent) audience. To get an idea of what this means, start by reading Keith Devlin’s essay “What is a mathematical proof?” 
+		
+		\url{https://mathvalues.squarespace.com/masterblog/what-is-a-mathematical-proof}
+		
+		\vspace{.2cm}
+		After reading the essay, think about the following:
+		\vspace{-.3cm}
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item Did the essay have a message? If so, what was it?
+			\item Did the essay use technical math terms? If so, were they defined or described the same way they would be in a math class?
+			\item Who do you feel the essay was targeted towards? Was it you? Your younger sibling? Your professor?
+		\end{itemize}
+
+		Another excellent, albeit much-longer-than-you-should-write-for-this-course, example of technical math writing for a smart but non-technical audience is Scott Aaronson’s “Who Can Name the Bigger Number?” (This one comes with some translations for non-native English speakers.) 
+		
+		\url{https://www.scottaaronson.com/writings/bignumbers.html}
+	}
+
+	\newpage
+	\topic{Project Timeline}{~}
+	\begin{mywidth}
+		In total, this writing project is worth 45\% of your grade for this course. Below is a short description of each part of the project, along with its deadline.
+	\end{mywidth}
+
+	\vspace{-.5em}
+	\subtopic[9 \%]{Fractals Essay}{You will write a short essay on fractals. It should address some combination of the following:
+	\vspace{-.3cm}
+	\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+		\item What are fractals?
+		\item Where do they come from?
+		\item Where (and why) do fractals appear in the real world?
+		\item How can they be measured or classified?
+		\item How are they different from figures in Euclidean geometry?
+	\end{itemize}
+
+	The Fractals essay should be $\sim\!2$ pages, and is due by \textbf{February 2 11:59PM}.
+	}
+
+	\vspace{-.5em}
+	\subtopic[9 \%]{Dynamics Essay}{You will write a short essay on dynamical systems. It should address some combination of the following:
+	\vspace{-.3cm}
+	\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+		\item What is a dynamical system?
+		\item Where do you encounter dynamical systems?
+		\item How do you classify dynamical systems?
+		\item Are some dynamical systems easier to understand? Why?
+	\end{itemize}
+
+	The Dynamics essay should be $\sim\!2$ pages, and is due by \textbf{February 23 11:59PM}.
+	}
+
+	\vspace{-.5em}
+	\subtopic[9 \%]{Chaos Essay}{You will write a short essay on chaos. It should address some combination of the following:
+	\vspace{-.3cm}
+	\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+		\item What is chaos?
+		\item Where does chaos appear?
+		\item Are chaos and randomness the same thing?
+		\item What challenges/solutions does an understanding of chaos offer us (as a society)?
+	\end{itemize}
+	
+	The Chaos essay should be $\sim\!2$ pages, and is due by \textbf{March 22 11:59PM}.
+	}
+
+	\vspace{-.5em}
+	\subtopic[2 \%]{Title \& Abstract}{You will submit the {\bf title} of your final essay, along with a one-paragraph {\bf abstract} explaining:
+	\vspace{-.3cm}
+	\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+		\item The theme of your final essay (based on your title).
+		\item How each of topic (chaos, fractals, and dynamics) relates to your theme.
+		\item How you will unify your small essays into a single coherent piece.
+	\end{itemize}
+	
+	The title \& abstract is due by \text{March 29 11:59PM}.
+	}
+
+	\vspace{-.5em} %TODO this reads oddly right now
+	\subtopic[12 \%]{Final Essay}{You will submit a final essay
+	combining your three short essays into one. You may need to
+	significantly re-work parts of your previous essays to get them
+	to flow together. You can put the essays together in any order
+	(it doesn’t need to be Fractals $\to$ Dynamics $\to$ Chaos, and
+	probably shouldn’t be in that order!)      
+	\medspace 
+	
+	The final essay should be $\sim\!6$ pages, and is due by \textbf{April 13 11:59PM}.
+	}
+
+	\vspace{-.5em}
+	\subtopic[4 \%]{Reflection}{You will submit a few paragraphs reflecting on the following:
+	\vspace{-.3cm}
+	\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+		\item How did you incorporate the feedback on your short essays into your final essay?
+		\item How has your understanding of mathematical communication changed over the term?
+		\item How has your perception of maths and definitions changed over the term?
+	\end{itemize}	
+	
+	The reflection is due at the same time as the final essay.
+	}
+
+	\topic{Grading}{~}
+	\begin{mywidth}
+		The focus of this writing project is \textbf{mathematical communication.} To this end, your essays will be graded on the following criteria:
+		\vspace{-.3cm}	
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item \textbf{Writing for your audience:}
+			You are trying to explain ideas 
+			to a non-mathematical audience. (Imagine you
+			were writing a feature for a magazine like New
+			Scientist.) This means you should avoid overly
+			technical descriptions, but you should also \textit{explain why your audience should
+			care}. Why are fractals interesting? How will
+			knowing about dynamical systems impact their
+			day-to-day life?
+			\item \textbf{Mathematical understanding:}
+			You need to talk about the specific ideas you’ve
+			learned in the course. \textit{An essay with
+			little mathematical content is not acceptable.}
+			It should be clear to a mathematician reading your
+			essay that you know what you’re talking about.
+			\item \textbf{Quality of writing:}
+			If your essay is hard to read, it’s not going to
+			communicate anything because people won’t read
+			it! Make sure to write in complete sentences and
+			use effective paragraphing. Your essay should also
+			flow logically from one paragraph to the next.
+		\end{itemize}
+		
+		In addition, the final essay will also be graded on two extra criteria:
+		\vspace{-.3cm}
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item \textbf{Cohesion of topics:}
+			The end goal is a single 6-page essay, not three
+			2-page essays! You should relate each topic to
+			your common theme and have a natural progression
+			of ideas.
+			\item \textbf{Creativity:} %TODO hmmm
+			Do your best to make your essay your own. Have you
+			used diagrams in your essay in a novel way? Have
+			you used any interesting outside sources? Have you related
+			math topics to your personal experiences?
+		\end{itemize}
+		
+		Pay careful attention to the page count: the short essays
+		should be $\sim\!2$ pages, and the final essay should
+		be $\sim\!6$ pages. If your essays are much shorter
+		than this, you probably haven't explored enough facets
+		of your topic. If your essays are much longer than this,
+		the TAs will only mark up to the page count!
+	\end{mywidth}
+
+	\topic{Advice}{~}
+	\begin{mywidth}
+		\textbf{Take the 2-page essays seriously!}
+		Your short essays should be coherent and have a logical flow of ideas, just like the final essay. Make sure to write in complete sentences and use effective paragraphs. Remember that each draft is worth 9\% of your final grade.
+		
+		\textbf{Read the TA feedback.} 
+		The course TAs will provide specific, constructive feedback on each of your drafts. Read their comments carefully and keep them in mind when working on the final version of your essay. Any general advice that they give can also be useful when working on the other short essays.
+		
+		\textbf{Make use of UofT’s writing centres.}
+		\begin{itemize}[leftmargin=1cm, itemsep=0ex, parsep=.5ex, labelindent=-4ex, label={\mydot}]
+			\item Your college has a writing centre where they can provide support on writing both the drafts and the final essay. You can find more details here: \\\url{https://writing.utoronto.ca/writing-centres/arts-and-science/}
+			\item The faculty runs a handful of mini-courses for English language learners designed to give students experience in writing formal, academic English:
+			\url{https://www.artsci.utoronto.ca/current/academic-advising-and-support/english-language-learning}
+			\item UofT also has a writing advice site that covers everything from planning to revising your writing: \url{https://advice.writing.utoronto.ca/}
+		\end{itemize}
+	\end{mywidth}
+\end{document}
+
