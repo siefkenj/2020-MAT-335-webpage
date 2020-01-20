@@ -794,7 +794,121 @@ copyright.
 	\end{parts}
 
 
+	\newpage
+	\subsection*{Continuous-time Dynamical Systems}
+	The dynamical systems we've seen so far involve taking one ``step'' at a time.
+	However, as we experience life, it seems like time advances continuously, not discretely.
+	Can we capture that in a dynamical system?
 
+	\begin{definition}[Continuous-time Dynamical System]
+		Let $X$ be a set and let $(T^a:X\to X)_{a\in \R}$ be a family of functions
+		satisfying $T^a\circ T^b=T^{a+b}$. Then, $(T^a,X)$ is called a \emph{continuous time
+		dynamical system}.
+	\end{definition}
+
+	\question
+	\begin{parts}
+		\item Let $S^a:\R\to\R$ be defined by $S^a(x)=ax$. Is $(S^a,\R)$ a continuous time dynamical system?
+		\item Let $T^a:\R\to\R$ be defined by $T^a(x)=2^a x$. Is $(T^a,\R)$ a continuous time dynamical system?
+		\item Let $\mathcal F=\Set{\text{functions from $\R$ to $\R$}}$ and define $E^t:\mathcal F\to\mathcal F$
+			by $E^t(f(x)) = f(x+t)$. Is $(E^t,\mathcal F)$ a continuous time dynamical system?
+	\end{parts}
+
+	\newpage
+	\question
+	\begin{parts}
+		\item 
+
+		Consider the following garden paths.
+		\begin{center}
+			\includegraphics[width=2in]{images/garden-path.pdf}
+		\end{center}
+		Let $P$ represent the set of points on the paths and define $W^t:P\to P$ to be the result of walking
+		at unit speed counter-clockwise around your path.
+
+			Is $(W^t,P)$ a continuous time dynamical system?
+
+		\item You're watching the surface of a lake and carefully map out the velocity of the
+			water at each point. You produce the following picture of velocities.
+		\begin{center}
+			\includegraphics[width=3in]{images/vectorfield1.jpg}
+		\end{center}
+			Let $S$ be the points on the surface of the lake and let $\Phi^t:F\to F$ be the result
+			of ``flowing'' along the surface for $t$ seconds. Is $(\Phi^t, F)$ a continuous time dynamical system?
+	\end{parts}
+
+	Systems like $(\Phi^t,F)$ come up often because they are described by \emph{local} rules. That is, recorded in the
+	picture is information about where you flow after tiny time increments---finding where you end up after bigger time
+	increments takes work.
+
+	\newpage
+	\begin{definition}[Vector Field]
+		Given a set $X$, a \emph{$n$-dimensional vector field on $X$} is a function $F:X\to \R^n$ which
+		assigns a vector to each point in $X$.
+	\end{definition}
+
+	Vector fields show up a lot in physics because \emph{velocities} and \emph{accelerations} of particles in a fluid
+	naturally produce vector fields.
+
+	\question
+		Let $V:\R^2\to\R^2$ be a vector field and let $\Phi^t:\R^2\to\R^2$ be the function which ``flows'' points along
+		the vector field with velocity at a given point equal to the magnitude of the vector at that point.
+	\begin{parts}
+		\item Find a $V$ so that all points flow vertically at unit speed.
+		\item Find a $V$ so that all points flow radially outward and increase in speed.
+		\item Find a $V$ so that all points flow around in a circle.
+		\item Find a $V$ so that all points flow around in a circle at the same speed.
+		\item Find a $V$ so that all points flow around in a circle with the same period (that is, it takes the same
+			amount of time for any given point to go around the circle).
+	\end{parts}
+
+	\begin{definition}[Flow \& Orbit]
+		Let $(W^t,X)$ be a continuous time dynamical system and let $x\in X$. 
+		The \emph{flow of $W^t$ starting at $x$} is the function $f:\R\to X$ defined by
+		\[
+			f(t) = W^t(x).
+		\]
+		The \emph{orbit of $x$ under $W^t$} is the set $\Set{f(t):t\in \R}$, where $f$ is the flow of $W^t$
+		starting at $x$. We call the set $\Set{f(t):t\in \R^+}$ the \emph{forward orbit} of $x$.
+	\end{definition}
+	We will often notate the flow of $W^t$ starting at $x$ by $\phi_t(x)$. As a flow, we think of $t$ as the variable.
+
+	\question
+		Let $V:\R^2\to\R^2$ be a vector field and let $\Phi^t:\R^2\to\R^2$ be the function that flows
+		points along the vector field. 
+	\begin{parts}
+		\item If possible, find a $V$ so that some orbits are infinitely long.
+		\item If possible, find a $V$ so that some orbits are not infinitely long.
+		\item If possible, find a $V$ so that some orbits are infinitely long and others are not.
+		\item If possible, find a $V$ so that all orbits are finite line segments.
+		\item If possible, find a $V$ so that the forward orbit of every point ends up at $\vec e_1$.
+		\item If possible, find a $V$ so that the forward orbit of every point ends up at $\vec 0$ or $\vec e_1$.
+	\end{parts}
+
+	\begin{definition}[Stable \& Unstable Points]
+		Let $(W^t,\R^n)$ be a continuous time dynamical system. We call the point $\vec x\in \R^n$ \emph{stable}
+		if for all $\varepsilon>0$, there exists a $\delta>0$ so that $\Norm{\vec x-\vec y} < \delta$ implies
+		\[
+			\Norm{\phi_t(x)-\phi_t(y)} < \varepsilon \qquad \text{ for all }\qquad t > 0.
+		\]
+		Otherwise, $\vec x$ is called \emph{unstable}.
+	\end{definition}
+
+	\question
+	Given a $2\times 2$ matrix $M$, define a vector field $V_M:\R^2\to\R^2$ by $V_M(\vec x)=M\vec x$. Consider the following matrices
+	and their associated vector fields:
+	\[
+		I=\mat{1&0\\0&1}\qquad
+		A=\mat{-1&0\\0&-1}\qquad
+		B=\mat{0&-1\\1&0}\qquad
+		C=\mat{1&-1\\1&1}\qquad
+		D=\mat{-1&-1\\1&-1}
+	\]
+	\begin{parts}
+		\item Explain in plain language what it means for $x$ to be a \emph{stable} point of a continuous
+			dynamical system.
+	\end{parts}
+		
 
 
 	\newpage
