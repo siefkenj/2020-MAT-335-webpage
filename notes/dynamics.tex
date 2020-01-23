@@ -611,7 +611,7 @@ copyright.
 		A \emph{transition matrix} for $\mathcal G$ is an $n\times n$ matrix $A=[a_{ij}]$ where
 		\[
 			a_{ij} = \begin{cases}
-				1 &\text{ if there is an edge from $i$ to $j$}\\
+				1 &\text{ if there is an edge from $j$ to $i$}\\
 				0 &\text{ otherwise}
 			\end{cases}.
 		\]
@@ -676,9 +676,9 @@ copyright.
 	\begin{parts}
 		\item Find a transition matrix, $T$, for the graph.
 		\item Find a matrix $P_1$ whose $i,j$ entry represents the probability
-			of transitioning from state $i$ to state $j$ in exactly one step.
+			of transitioning from state $j$ to state $i$ in exactly one step.
 		\item Find a matrix $P_2$ whose $i,j$ entry represents the probability
-			of transitioning from state $i$ to state $j$ in exactly two steps.
+			of transitioning from state $j$ to state $i$ in exactly two steps.
 		\item How do $P_2$ and $P_1^2$ relate?
 		\item Does $\lim_{n\to\infty} P_1^n$ exist? If so, what is it?
 	\end{parts}
