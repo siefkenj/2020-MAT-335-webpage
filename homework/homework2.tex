@@ -1,0 +1,244 @@
+\documentclass[letter]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+%%%
+% Set up the margins to use a fairly large area of the page
+%%%
+\oddsidemargin=.2in
+\evensidemargin=.2in
+\textwidth=6in
+\topmargin=-.5in
+\textheight=9in
+\parskip=.07in
+\parindent=0in
+\pagestyle{fancy}
+
+%%%
+% Set up the header
+%%%
+\newcommand{\setheader}[6]{
+	\lhead{{\sc #1}\\{\sc #2} ({\small \it \today})}
+	\rhead{
+		{\bf #3} 
+		\ifthenelse{\equal{#4}{}}{}{(#4)}\\
+		{\bf #5} 
+		\ifthenelse{\equal{#6}{}}{}{(#6)}%
+	}
+}
+
+\makeatletter
+\newcommand{\escapeus}{\begingroup\@makeother\_\@escapeus}
+\newcommand*{\@escapeus}[1]{#1\endgroup}
+\makeatother
+
+%%%
+% Set up some shortcut commands
+%%%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Proj}{\mathrm{proj}}
+\newcommand{\Perp}{\mathrm{perp}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\Null}{\mathrm{null}}
+\newcommand{\Rank}{\mathrm{rank}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\var}[1]{{$\langle$\it #1$\rangle$}}
+\newcommand{\Code}[1]{\texttt{\escapeus #1}}
+
+%%%
+% This is where the body of the document goes
+%%%
+\begin{document}
+	\setheader{MAT335}{Homework 1}{Due: 11:59pm January 26}{}{}{}
+
+	\begin{enumerate}
+		\item 
+		McDonalds recently negotiated a large purchasing deal for fish, chicken, and beef.  They have agreed to purchase
+		40 million tons of fish, 40 million tons of chicken, and 100 million tons of beef.  As such, they want to create an advertising campaign
+		to ensure that consumers eat the correct portion of each meat product.
+
+		After paying to have a commercial produced, McDonalds collects the following data: After watching the commercial once,
+		a person who initially wanted fish now has a 10\% chance of buying a fish product, a 60\% chance of buying a beef product,
+		and a 30\% chance of buying a chicken product; after watching, a person who initially wanted to buy a beef product has
+		a 20\% chance of buying a fish product, a 60\% chance of buying a beef product, and a 20\% chance of buying a chicken product;
+		after watching, a person who initially wanted to by a chicken product has a 40\% chance of buying a fish product, a 50\%
+		chance of buying a beef product, and a 10\% chance of buying a chicken product.
+		\begin{enumerate}
+			\item If the vector $\vec e_1$ represents a person who wants 
+			to buy a fish product, $\vec e_2$ represents a person who wants 
+			to buy a beef product, and $\vec e_3$ represents a person who wants 
+			to buy a chicken product, find a matrix $M$ such that $M\vec e_i$ gives the probability of buying fish, beef,
+			or chicken after watching the commercial once.
+
+			\item Compute the eigenvalues and eigenvectors of $M$.
+
+			\item Assume that a fish product takes 50 grams
+			of fish, a beef product takes 50 grams of beef,
+			and a chicken product takes 50 grams of chicken.
+			Further, assume that each time a person watches
+			the commercial it has the same impact (i.e.,
+			watching the commercial twice means the likelihood
+			of buying a particular product is given by $M^2$).
+			If McDonalds ensures that the average customer
+			sees the commercial 3000 times, what are the
+			relative proportions of fish, beef, and chicken
+			McDonalds expects to sell?
+
+			\item Should McDonalds run the ad? Does the
+			initial population's preferences for fish,
+			beef, or chicken matter? \emph{Explain your
+			reasoning.}
+		\end{enumerate}
+
+		\item Throughout this problem, let $P$ be an $n\times n$ \emph{stochastic matrix}. 
+		\begin{enumerate}
+			\item Prove that if $\vec q$ is a \emph{probability vector}, then $P\vec q$ is also
+				a probability vector.
+			\item Prove that $P^k$ is a stochastic matrix for all $k\geq 0$.
+
+			\item A \emph{left eigenvector} for $P$ is a non-zero row vector $\vec w$ so
+				that $\vec wP=\lambda \vec w$.
+
+				Does $P$ have a left eigenvector with eigenvalue $1$? Why or why not?
+			\item Show that the left and right eigenvectors of $P$ may be different but the left
+				and right eigenvalues of $P$ must be the same. \emph{Hint: you may use
+				facts from linear algebra about determinants and transposes.}
+
+			\item The \emph{unit $n$-symplex} is the set of all convex linear combinations
+				of $\vec e_1,\ldots,\vec e_n$. Let $S$ be the unit $n$ symplex, and let $\mathcal P:\R^n\to\R^n$
+				be the linear transformation defined by $\mathcal P(\vec x)=P\vec x$. Show that $\mathcal P(S)\subseteq S$.
+				\emph{Hint: start by showing that vectors in $S$ are probability vectors.}
+
+			\item The Brouwer Fixed-point Theorem states that a continuous map from a simplex into itself
+				has at least one fixed point. Use the Brouwer Fixed-point Theorem to show that $P$ has
+				at least one (right) eigenvector with eigenvalue $1$ \emph{which is also a probability vector}.
+		\end{enumerate}
+
+		\item We're going to prove some linear algebra facts because, \emph{just maybe} they'll be useful.
+		
+			Let $P$ be an $n\times n$ stochastic matrix and let $\mathcal P:\R^n\to\R^n$ be the linear
+			transformation induced by $P$ (i.e., given by matrix multiplication). Let $S$ be the unit $n$-symplex.
+		\begin{enumerate}
+			\item Draw $S$ when $n=1$, $2$, and $3$.
+			\item Prove that $S$ is equal to the set of all probability vectors in $\R^n$.
+			\item Prove that if $\vec p,\vec q\in S$, then all convex linear combinations of $\vec p$
+				and $\vec q$ are in $S$.
+			\item For the rest of this problem, assume $n\geq 2$.
+
+				The \emph{boundary} of $S$, written $\partial S$, consists of all vectors in $S$ where at least one coordinate
+				is zero.
+
+				Let $\vec a,\vec b\in S$ be distinct points and let $\ell\subseteq \R^n$ be the line passing through $\vec a$
+				and $\vec b$. Prove that $\ell$ intersects the boundary of $S$.
+			\item Prove that if $V\subseteq \R^n$ is a subspace of \emph{dimension at
+				least two}, then the following holds: if $V\cap S$ is nonempty, then $V\cap \partial S$ is non-empty.
+			\item Prove that if $\vec a,\vec b\in S$ are distinct eigenvectors for $P$ with eigenvalue $1$, then there
+				exists a $\vec d\in \partial S$ which is an eigenvector for $P$ with eigenvalue $1$.
+		\end{enumerate}
+
+		\item Let $\mathcal M=(M_0,M_1,\ldots)$ be a stationary Markov chain on a graph $\mathcal G$
+			with $n$ vertices, and let $P$ be the (stochastic) transition matrix for $\mathcal M$. 
+			Further, suppose $\mathcal M$ is modeled by the dynamical system $(T,\Omega)$,
+			where $\Omega$ is the space of probability distributions on the $n$ vertices.
+		\begin{enumerate}
+			\item Produce examples where $\lim_{k\to\infty} P^k$ exists and does not exist. Can you find
+				conditions on $\mathcal M$ and $\mathcal G$ so that $\lim_{k\to\infty} P^k$ always exists?
+			\item A \emph{stationary distribution} for $\mathcal M$ is defined to be a fixed-point of 
+				$(T,\Omega)$. Produce examples where $\mathcal M$ has exactly 1, 2, and 3 stationary distributions.
+
+			\item Prove that a convex linear combination of stationary distributions for $\mathcal M$ 
+				is a stationary distribution for $\mathcal M$.
+
+			\item Prove that $\mathcal M$ always has \emph{at least one} stationary distribution.
+
+			\item A Markov chain is called \emph{primitive} if there exists a $k\in \N$ such that
+				the probability of transitioning from state $i$ to state $j$ in exactly $k$ steps
+				is positive \emph{for every $i$ and $j$}.
+
+				\smallskip
+				A distribution $\vec d\in \Omega$ is said to have \emph{full support} if none of the entries
+				in $\vec d$ are zero.
+
+				\smallskip
+				Show that if $\mathcal M$ is primitive, then every stationary distribution for $\mathcal M$
+				must have full support.
+			\item Prove that if $\mathcal M$ is primitive, then $\mathcal M$ has a \emph{unique} stationary distribution.
+			\item Show that if $\mathcal M$ is primitive and $\lim_{k\to\infty} P^k$ exists, then $P=[\vec s|\vec s|\cdots|\vec s]$,
+				where $\vec s$ is the unique stationary distribution for $\mathcal M$.
+		\end{enumerate}
+
+
+	\end{enumerate}
+
+
+	\subsection*{Programming Problems}
+	For the programming problems, please use the Jupyter notebook available at
+
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework1-exercises.ipynb}
+
+	Make sure to comment your code and use ``Markdown'' style cells to explain what your answers.
+
+	\begin{enumerate}
+		\item Find the Markov chain with text analysis.
+	\end{enumerate}
+
+
+
+\end{document}
