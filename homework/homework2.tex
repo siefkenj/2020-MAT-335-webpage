@@ -231,11 +231,20 @@ showstringspaces=false            %
 	\subsection*{Programming Problems}
 	For the programming problems, please use the Jupyter notebook available at
 
-	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework1-exercises.ipynb}
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework2-exercises.ipynb}
 
 	Make sure to comment your code and use ``Markdown'' style cells to explain what your answers.
 
 	\begin{enumerate}
+		\item {\tt np.random.rand()} will generate a random number chosen uniformly from the interval $[0,1]$. That
+			means, if $x,y\in [0,1]$ and $x<y$, the probability that the output of {\tt np.random.rand()} lies in $[x,y]$
+			is $y-x$.
+
+			Using {\tt np.random.rand()}, create a function \verb|pick_random| which inputs a list of the form
+			{\tt [(\var{probability}, \var{state}),...]} and returns one of the states chosen at random (but with 
+			the appropriate probability).
+
+		\item simulate markov chain and recover stationary distribution and transition probabilities. Do empirical vs. picking at a time.
 		\item Find the Markov chain with text analysis.
 	\end{enumerate}
 
