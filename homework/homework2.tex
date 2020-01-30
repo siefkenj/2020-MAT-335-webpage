@@ -106,7 +106,7 @@ showstringspaces=false            %
 % This is where the body of the document goes
 %%%
 \begin{document}
-	\setheader{MAT335}{Homework 1}{Due: 11:59pm January 26}{}{}{}
+	\setheader{MAT335}{Homework 2}{Due: 11:59pm February 9}{}{}{}
 
 	\begin{enumerate}
 		\item 
@@ -240,12 +240,97 @@ showstringspaces=false            %
 			means, if $x,y\in [0,1]$ and $x<y$, the probability that the output of {\tt np.random.rand()} lies in $[x,y]$
 			is $y-x$.
 
+		\begin{enumerate}
+			\item 
 			Using {\tt np.random.rand()}, create a function \verb|pick_random| which inputs a list of the form
 			{\tt [(\var{probability}, \var{state}),...]} and returns one of the states chosen at random (but with 
 			the appropriate probability).
+			\item Create a function \verb|pick_random_n| which inputs a distribution and a number $n$ and outputs $n$
+				\emph{samples} from that distribution.
+				
+				Using the code provided, plot the theoretical (exact) distribution and the empirical (simulated)
+				distribution.
+		\end{enumerate}
 
-		\item simulate markov chain and recover stationary distribution and transition probabilities. Do empirical vs. picking at a time.
-		\item Find the Markov chain with text analysis.
+		\item A Python \emph{dictionary} is an like an array except that it can be indexed by things other than numbers\footnote{
+		In general, such an object is called an \emph{associative array}.}. It's written with curly braces, colons, and commas.
+		For instance, writing \verb|x = {"a": 4, "b": 100}| sets {\tt x} to be a dictionary with keys {\tt "a"} and {\tt "b"}.
+		Executing \verb|x["a"]| will return {\tt 4} and \verb|x["b"]| will return {\tt 100}.
+
+		Dictionaries are an idea object for storing \emph{graphs} and consequently Markov chains. We will store a Markov chain
+		in {\tt \var{state}: \var{distribution}} pairs listed in a dictionary.
+		\begin{enumerate}
+			\item Create a function {\tt step(\var{starting state}, \var{chain})} that inputs a starting state and a Markov chain
+				and outputs the results of going one step along the chain.
+			\item Create a function \verb|n_orbit| that takes a starting state, Markov chain, and a number of steps $n$, and
+				returns the $n$-step realization of that Markov chain.
+			\item The {\tt Counter} function will input a list and output a dictionary with the count of each item in that list.
+				Using {\tt Counter}, create a \verb|make_dist| function which inputs a sequence of states and outputs
+				the empirical distribution coming from those states\footnote{ The \emph{empirical} distribution
+				of a sequence of states is the relative proportions of those states in the sequence.}. Make sure
+				the resulting distribution is \emph{sorted in alphabetical order by state}\footnote{ You may want to look
+				up the {\tt sorted} command in Python.}.
+
+				Using \verb|make_dist|, plot the empirical and theoretical steady state distributions for CHAIN1.
+		\end{enumerate}
+
+		\item
+			\begin{enumerate}
+				\item Make a plot showing the empirical distributions arising from realizations of CHAIN2 starting
+					at states {\tt "a"}, {\tt "b"}, \ldots, etc.. Does the starting state affect the empirical
+					distribution? Is this what you expect?
+
+					The \verb|ensure_consistent_dists()| function can be used to ensure that a list of distributions
+					share the same states so that they can be graphed together.
+				\item Compute the stationary distribution for CHAIN2\footnote{ You can use {\tt np.linalg.eig}
+					to compute eigenvectors and eigenvalues in Python. Read the documentation to figure out exactly
+					what the return values are!}. Does this match what you see from the empirical distribution?
+				\item Instead of computing an empirical distribution from a single realization. Let's use a bunch of realizations!
+					Suppose $r_{100}$ represents the state a step 100 of a realization of CHAIN2. Using at least 10000
+					different realizations, plot the empirical distribution of the different $r_{100}$'s. Is this the same
+					or different from the stationary distribution for CHAIN2? Is that what you expected?
+				\item Repeat (a)-(c) for CHAIN3. Explain your results.
+			\end{enumerate}
+
+		\item {\bf Shakespeare vs.~Lawyers}
+		\begin{enumerate}
+			\item Execute the code which downloads the complete works of Shakespeare and the Ontario Criminal Code.
+			\item Create a function \verb|make_chain| which takes in a realization of a Markov chain and outputs
+				a dictionary of transition probabilities (in the same format that CHAIN1, CHAIN2, and CHAIN3
+				are stored).
+			\item Create Markov chains using the complete works of Shakespeare and the Ontario Criminal Code
+				as ``realizations''.
+			\item Using your Shakespeare and Ontario Criminal Code Markov chains, create length-30 realizations
+				with the starting words ``the'', ``sunset'', and ``satisfied''\footnote{ You can use the command
+				{\tt " ".join(\var{list})} to create a string consisting of the words in a list.}.
+			\item The simple Markov chain's we've made don't pay attention to punctuation or sentence length. Using
+				your human judgement, properly format the realizations of your Markov chains (as best you can).
+				The sentences might not make complete English sense, but that's okay!
+		\end{enumerate}
+	\item {\bf Iterated Function Systems}
+		\begin{enumerate}
+			\item Read and understand the first three cells in the \emph{Iterated Functions} section.
+			\item The sample code takes a single realization of the iterated function system, applies
+				it to the point $(1,1)$, and plots it.
+
+				Make a plot of the distribution of this iterated function system by plotting the image
+				of many points under many different realizations. What shape do you see?
+			\item Using brightness, we can visualize distributions more easily. If you set {\tt additive=True}
+				in the \verb|render_points_to_array()| function, a value of $1$ will be added for each
+				point that lands in a particular pixel. This means the more points that land in a pixel,
+				the ``brighter'' it will look.
+
+				Create a new chain, \verb|F_CHAIN2| which is the same as \verb|F_CHAIN| but with a $1/4$ chance
+				of transitioning to {\tt f1} and {\tt f2} and a $1/2$ chance of transitioning to {\tt f3} 
+				(regardless of state). Plot the distributions of both \verb|F_CHIAN| and \verb|F_CHAIN2|. Are the 
+				results what you expect?
+
+				\emph{Hint:} You may find it easier to visualize if you graph log-intensities instead of 
+				direct intensities. You could do this by applying {\tt np.log(\var{density array} + 1)}
+				on your data before plotting.
+
+				
+		\end{enumerate}
 	\end{enumerate}
 
 
