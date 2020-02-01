@@ -106,7 +106,7 @@ showstringspaces=false            %
 % This is where the body of the document goes
 %%%
 \begin{document}
-	\setheader{MAT335}{Homework 2}{Due: 11:59pm February 9}{}{}{}
+	\setheader{MAT335}{Homework 2}{Due: 11:59pm February 16}{}{}{}
 
 	\begin{enumerate}
 		\item 
@@ -329,8 +329,49 @@ showstringspaces=false            %
 				direct intensities. You could do this by applying {\tt np.log(\var{density array} + 1)}
 				on your data before plotting.
 
+			\item Numpy can perform matrix multiplication with the {\tt @} symbol. For example,
+				{\tt np.array([[1,2],[3,4]]) @ np.array([1,1])} will multiply the matrix
+				$\mat{1&2\\3&4}$ by the vector $\mat{1\\1}$. Many other linear algebra functions
+				can be found by typing {\tt np.linalg.\var{tab}}.
+
+				Create a new iterated function system, \verb|ROT_CHAIN|, with the same functions as \verb|F_CHAIN|,
+				except that $f_1$ rotates the resulting vector counter-clockwise by $30^\circ$ before returning it,
+				and $f_2$ rotates the resulting vector $30^\circ$ clockwise before returning it.
+
+				Plot the resulting distribution. Is it what you expected?
+
+			\item Read about the Barnsley Fern \url{https://en.wikipedia.org/wiki/Barnsley_fern}. Create
+				an iterated function system \verb|BARNSLEY_CHAIN| whose maximal invariant set is the Barnsley
+				Fern. Graph the maximal invariant set (or the distribution, whichever you please).
+				
+
 				
 		\end{enumerate}
+
+	\item {\bfseries Flam3} A very popular algorithm for generating fractals is the \emph{flam3} algorithm\footnote{ It is pronounced
+		\emph{flame}, like the thing that comes out of a candle.}. The \emph{flam3} algorithm consists of two parts:
+		(a) functions to be used as part of an iterated function system, and (b) a rendering algorithm that produces
+		smoothed-out graphics with varying color (instead of the pixely-looking fractals that we are rendering).
+
+		Look over the functions used in the \emph{flam3} algorithm here: \url{https://github.com/AlexanderJenke/FractalFlame/blob/master/functions.py}
+		Each function accepts an $(x,y)$ pair and a number of parameters which can be set by the user.
+
+		Download and run JWildfire \url{http://www.jwildfire.org} which is a program that will let you interactively
+		(and in real time) adjust the parameters of a \emph{flam3} fractal\footnote{ If you're picky about software, you can
+		use a different \emph{flam3} renderer.}.
+
+		For this question: \emph{make a pretty fractal!}
+
+		If you want to start with something familiar, download and save \url{https://raw.githubusercontent.com/siefkenj/2020-MAT-335-webpage/master/homework/basic_sierpinksi.flame}
+		Then load \verb|basic_sierpinksi.flame| into JWildfire. You will then see three ``linear3D'' functions in the \emph{Transformations} tab.
+		Below, in the \emph{Affine} tab, you can see the matrices that correspond to each transformation. If you click one of the triangles
+		in the middle section, you can drag them around to interactively change the defining matrix. You can also middle click or right click to
+		adjust the parameters in different ways. You can also have lots of fun by playing with the \emph{Nonlinear} tab.
+
+
+
+
+
 	\end{enumerate}
 
 
