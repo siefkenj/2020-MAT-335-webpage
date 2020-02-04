@@ -852,7 +852,7 @@ copyright.
 
 	\question
 		Let $V:\R^2\to\R^2$ be a vector field and let $\Phi^t:\R^2\to\R^2$ be the function which ``flows'' points along
-		the vector field with velocity at a given point equal to the magnitude of the vector at that point.
+		the vector field with velocity at a given point equal to the vector at that point.
 	\begin{parts}
 		\item Find a $V$ so that all points flow vertically at unit speed.
 		\item Find a $V$ so that all points flow radially outward and increase in speed.
@@ -882,14 +882,16 @@ copyright.
 		\item If possible, find a $V$ so that some orbits are infinitely long and others are not.
 		\item If possible, find a $V$ so that all orbits are finite line segments.
 		\item If possible, find a $V$ so that the forward orbit of every point ends up at $\vec e_1$.
-		\item If possible, find a $V$ so that the forward orbit of every point ends up at $\vec 0$ or $\vec e_1$.
+		\item If possible, find a $V$ so that the forward orbit of every point ends up at $\vec 0$ or $\vec e_1$ (and
+			at least one orbit heads towards $\vec 0$ and one towards $\vec e_1$).
 	\end{parts}
 
 	\begin{definition}[Stable \& Unstable Points]
 		Let $(W^t,\R^n)$ be a continuous time dynamical system. We call the point $\vec x\in \R^n$ \emph{stable}
-		if for all $\varepsilon>0$, there exists a $\delta>0$ so that $\Norm{\vec x-\vec y} < \delta$ implies
+		if for all $\varepsilon>0$, there exists a $\delta>0$ so that for all $\vec y\in \R^n$, 
 		\[
-			\Norm{\phi_t(x)-\phi_t(y)} < \varepsilon \qquad \text{ for all }\qquad t > 0.
+			\Norm{\vec x-\vec y} < \delta\qquad \text{implies}\qquad
+		\Norm{\phi_t(x)-\phi_t(y)} < \varepsilon \qquad \text{ for all }\qquad t > 0.
 		\]
 		Otherwise, $\vec x$ is called \emph{unstable}.
 	\end{definition}
