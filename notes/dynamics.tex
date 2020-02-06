@@ -824,7 +824,7 @@ copyright.
 			\includegraphics[width=2in]{images/garden-path.pdf}
 		\end{center}
 		Let $P$ represent the set of points on the paths and define $W^t:P\to P$ to be the result of walking
-		at unit speed counter-clockwise around your path.
+		at unit speed counter-clockwise around your path for $t$ seconds.
 
 			Is $(W^t,P)$ a continuous time dynamical system?
 
@@ -833,11 +833,11 @@ copyright.
 		\begin{center}
 			\includegraphics[width=3in]{images/vectorfield1.jpg}
 		\end{center}
-			Let $S$ be the points on the surface of the lake and let $\Phi^t:F\to F$ be the result
-			of ``flowing'' along the surface for $t$ seconds. Is $(\Phi^t, F)$ a continuous time dynamical system?
+			Let $S$ be the points on the surface of the lake and let $\Phi^t:S\to S$ be the result
+			of ``flowing'' along the surface for $t$ seconds. Is $(\Phi^t, S)$ a continuous time dynamical system?
 	\end{parts}
 
-	Systems like $(\Phi^t,F)$ come up often because they are described by \emph{local} rules. That is, recorded in the
+	Systems like $(\Phi^t,S)$ come up often because they are described by \emph{local} rules. That is, recorded in the
 	picture is information about where you flow after tiny time increments---finding where you end up after bigger time
 	increments takes work.
 
@@ -886,8 +886,10 @@ copyright.
 			at least one orbit heads towards $\vec 0$ and one towards $\vec e_1$).
 	\end{parts}
 
+	\newpage
 	\begin{definition}[Stable \& Unstable Points]
-		Let $(W^t,\R^n)$ be a continuous time dynamical system. We call the point $\vec x\in \R^n$ \emph{stable}
+		Let $(W^t,\R^n)$ be a continuous time dynamical system and let $\phi_t(\vec w)$
+		represent the flow of $W^t$ starting at $\vec w\in\R^n$. We call the point $\vec x\in \R^n$ \emph{stable}
 		if for all $\varepsilon>0$, there exists a $\delta>0$ so that for all $\vec y\in \R^n$, 
 		\[
 			\Norm{\vec x-\vec y} < \delta\qquad \text{implies}\qquad
@@ -900,15 +902,43 @@ copyright.
 	Given a $2\times 2$ matrix $M$, define a vector field $V_M:\R^2\to\R^2$ by $V_M(\vec x)=M\vec x$. Consider the following matrices
 	and their associated vector fields:
 	\[
-		I=\mat{1&0\\0&1}\qquad
-		A=\mat{-1&0\\0&-1}\qquad
-		B=\mat{0&-1\\1&0}\qquad
-		C=\mat{1&-1\\1&1}\qquad
-		D=\mat{-1&-1\\1&-1}
+		I=\mat{1&0\\0&1}\quad
+		A=\mat{-1&0\\0&-1}\quad
+		B=\mat{0&-1\\1&0}\quad
+		C=\mat{1&-1\\1&1}\quad
+		D=\mat{-1&-1\\1&-1}\quad
+		E=\mat{0&1\\1&0}
 	\]
 	\begin{parts}
 		\item Explain in plain language what it means for $x$ to be a \emph{stable} point of a continuous
 			dynamical system.
+		\item Use an online plotter (for example \url{https://www.desmos.com/calculator/eijhparfmd} ) to
+			plot $V_X$ for $X\in\{I,A,B,C,D,E\}$.
+		\item Compute the eigenvalues for each of the matrices. Can you relate the eigenvalues to 
+			stable/unstable points?
+	\end{parts}
+
+	\subsection*{Differential Equations}
+	To really get a handle on what's going on, let's thing about some differential equations!
+
+	\question
+	\begin{parts}
+		\item Let $a$ be a constant. Find a non-trivial solution to the differential equation $f'(t)=af(t)$.
+		\item Consider the (boring) vector field $V:\R^1\to\R^1$ defined by $V(t)=at$. Find a non-trivial flow
+			for the corresponding dynamical system. Is $V$ given by matrix multiplication? If so, what's the matrix?
+		\item Let $D=\mat{a&0\\0&b}$ and define the vector field $W:\R^2\to\R^2$ by $W(\vec x)=D\vec x$. Find a non-trivial
+			flow for the corresponding dynamical system.
+
+			Can you give conditions on $a$ and $b$ so that $\vec 0$ is stable/unstable with respect to the corresponding
+			dynamical system? If $a$ and $b$ are complex numbers, does that change your answer?
+		\item Suppose $(W^t,\R^n)$ is a continuous dynamical system. Define what the \emph{derivative of $W^t$ with respect to
+			time} should mean. How does this relate to vector fields and flows?
+		\item Prove that if $f:\R\to\R^n$ is a function and $M$ is a matrix, then $(Mf)'=M(f')$.
+		\item Suppose $A$ is a diagonalizable matrix and $A=PDP^{-1}$ where $D$ is diagonal. Further,
+			suppose $f$ is a solution to $f'(t)=Df(t)$. Find a solution to the differential equation
+			$\Phi'(t)=A\Phi(t)$.
+		\item Let $M$ be a matrix and consider the dynamical system coming from the vector field $\vec x\mapsto M\vec x$.
+			Classify the behaviour near $\vec 0$ based on the eigenvalues of $M$.
 	\end{parts}
 		
 
