@@ -161,8 +161,8 @@ showstringspaces=false            %
 				and right eigenvalues of $P$ must be the same. \emph{Hint: you may use
 				facts from linear algebra about determinants and transposes.}
 
-			\item The \emph{unit $n$-symplex} is the set of all convex linear combinations
-				of $\vec e_1,\ldots,\vec e_n$. Let $S$ be the unit $n$ symplex, and let $\mathcal P:\R^n\to\R^n$
+			\item The \emph{unit $(n-1)$-symplex} is the set of all convex linear combinations
+				of $\vec e_1,\ldots,\vec e_n$. Let $S$ be the unit $(n-1)$ symplex, and let $\mathcal P:\R^n\to\R^n$
 				be the linear transformation defined by $\mathcal P(\vec x)=P\vec x$. Show that $\mathcal P(S)\subseteq S$.
 				\emph{Hint: start by showing that vectors in $S$ are probability vectors.}
 
@@ -174,7 +174,7 @@ showstringspaces=false            %
 		\item We're going to prove some linear algebra facts because, \emph{just maybe} they'll be useful.
 		
 			Let $P$ be an $n\times n$ stochastic matrix and let $\mathcal P:\R^n\to\R^n$ be the linear
-			transformation induced by $P$ (i.e., given by matrix multiplication). Let $S$ be the unit $n$-symplex.
+			transformation induced by $P$ (i.e., given by matrix multiplication). Let $S$ be the unit $(n-1)$-symplex.
 		\begin{enumerate}
 			\item Draw $S$ when $n=1$, $2$, and $3$.
 			\item Prove that $S$ is equal to the set of all probability vectors in $\R^n$.
@@ -286,7 +286,7 @@ showstringspaces=false            %
 					to compute eigenvectors and eigenvalues in Python. Read the documentation to figure out exactly
 					what the return values are!}. Does this match what you see from the empirical distribution?
 				\item Instead of computing an empirical distribution from a single realization. Let's use a bunch of realizations!
-					Suppose $r_{100}$ represents the state a step 100 of a realization of CHAIN2. Using at least 10000
+					Suppose $r_{100}$ represents the state at step 100 of a realization of CHAIN2. Using at least 10000
 					different realizations, plot the empirical distribution of the different $r_{100}$'s. Do
 					the same for the $r_{101}$'s. Is this the same
 					or different from the stationary distribution for CHAIN2? Is that what you expected?
