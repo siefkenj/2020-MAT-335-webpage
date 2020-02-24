@@ -1,0 +1,226 @@
+\documentclass[letter]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+%%%
+% Set up the margins to use a fairly large area of the page
+%%%
+\oddsidemargin=.2in
+\evensidemargin=.2in
+\textwidth=6in
+\topmargin=-.5in
+\textheight=9in
+\parskip=.07in
+\parindent=0in
+\pagestyle{fancy}
+
+%%%
+% Set up the header
+%%%
+\newcommand{\setheader}[6]{
+	\lhead{{\sc #1}\\{\sc #2} ({\small \it \today})}
+	\rhead{
+		{\bf #3} 
+		\ifthenelse{\equal{#4}{}}{}{(#4)}\\
+		{\bf #5} 
+		\ifthenelse{\equal{#6}{}}{}{(#6)}%
+	}
+}
+
+\makeatletter
+\newcommand{\escapeus}{\begingroup\@makeother\_\@escapeus}
+\newcommand*{\@escapeus}[1]{#1\endgroup}
+\makeatother
+
+%%%
+% Set up some shortcut commands
+%%%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Proj}{\mathrm{proj}}
+\newcommand{\Perp}{\mathrm{perp}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\Null}{\mathrm{null}}
+\newcommand{\Rank}{\mathrm{rank}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\var}[1]{{$\langle$\it #1$\rangle$}}
+\newcommand{\Code}[1]{\texttt{\escapeus #1}}
+\DeclareMathOperator{\Tr}{Tr}
+
+%%%
+% This is where the body of the document goes
+%%%
+\begin{document}
+	\setheader{MAT335}{Homework 3}{Due: 11:59pm March 15}{}{}{}
+
+	\begin{enumerate}
+		\item Consider the vector field $\vec F(x,y) = (x+y^2,-y)$ and its associated continuous dynamical system $(W^t, \R^2)$.
+			\begin{enumerate}
+				\item For each of the following functions, show whether or
+					not it is a flow for $(W^t,\R^2)$.
+					\begin{enumerate}
+						\item $\vec \varphi(t) = (-e^{-2t},\sqrt{3}e^{-t})$
+						\item $\vec \varphi(t) = (-e^{-4t},\sqrt{3}e^{-2t})$
+						\item $\vec \varphi(t) = (\frac{4}{3}e^t-\frac{1}{3}e^{-2t},e^{-t})$
+						\item $\vec \varphi(t) = (e^t-e^{-2t},e^{-t})$
+					\end{enumerate}
+				\item A \emph{constant flow} is a flow $\vec\varphi$ such that $\vec\varphi(t_1)=\vec \varphi(t_2)$ for
+					all $t_1,t_2\in \R$.  Find all constant flows for $\vec F$. (Hint: think about $\vec\varphi\,'$ in
+					this situation.)
+				\item Classify all fixed points of $(W^t,\R^2)$ as stable or unstable.
+				\item Find \emph{all} flows of $(W^t,\R^2)$ that pass through the point $(1,0)$.  Remember,
+					if $\vec\varphi$ is a flow with this property, it is not a requirement that $\vec\varphi(0)=(1,0)$,
+					only that $\vec \varphi(t_0)=(1,0)$ for some $t_0$.
+				\item We call the flows $\vec\varphi_1$
+					and $\vec \varphi_2$ time shifts of each other if $\vec \varphi_1(t)=\vec \varphi_2(t+t_0)$ for
+					some $t_0$. Show that the flows from part (d) are time shifts of each other.  
+			\end{enumerate}
+
+
+		\item Let's explore the question of whether every discrete dynamical system can be
+			described as the time-$1$ map of a continuous dynamical system.
+
+			Let $(W^t,X)$ be a continuous dynamical system, and let $(T,X)$ be its time-$1$ map.
+			That is, $T(x) = W^1(x)$.
+
+			The point $x\in X$ is called \emph{periodic} for $(W^t,X)$ if there exists a $t\neq 0$ so that $W^t(x)=x$ and
+			is called \emph{periodic} for $(T,X)$ if there exists an $i\neq 0$ so that $T^ix=x$. In both cases, the minimum
+			$t$ or $i$ such $W^t(x)=x$ or $T^i(x)=x$ is called the \emph{period} of $x$.
+			\begin{enumerate}
+				\item Suppose $x\in X$ is a \emph{periodic point} for $(T,X)$. Must $x$ be a periodic point for $(W^t,X)$?
+				\item Suppose $x\in X$ is a \emph{periodic point} for $(W^t,X)$. Must $x$ be a periodic point for $(T,X)$?
+				\item Show that if $x$ is a point of period at least $2$ for $(T,X)$, then there are infinitely many periodic
+					points for $(T,X)$ \emph{of the same period}.
+				\item Consider the \emph{logistic map} $T:[0,1]\to[0,1]$ defined by $x\mapsto rx(1-x)$. Show that
+					when $r=\frac{19}{6}$ the logistic map has exactly two points of period 2. (Hint: use a computer
+					algebra system to solve any nasty equations you come across!)
+				\item Are all discrete dynamical systems time-$1$ maps to continuous dynamical systems? Justify your answer.
+			\end{enumerate}
+
+		\item The function $G:\R^n\to\R^m$ is called \emph{affine} if there exists a matrix $A$ and
+			a vector $\vec p$ so that $G(\vec x) = A\vec x+\vec p$ for all $\vec x$.
+
+			Let $F:\R^n\to\R^m$. A \emph{first-order approximation} to $F$ at the point $\vec w\in \R^n$ is an
+			affine function $L:\R^n\to\R^m$ satisfying
+			\[
+				\lim_{\|\vec x\|\to 0} \frac{F(\vec w+\vec x)-L(\vec w+\vec x)}{\|\vec x\|} = 0.
+			\]
+			\begin{enumerate}
+				\item Let $F:\R\to\R$ be defined by $x\mapsto x^2$. Find a first-order approximation, $L_0$, 
+					to $F$ at $0$, and a first-order approximation, $L_2$, to $F$ at $2$.
+				\item Let $F:\R^2\to\R^2$ be defined by $\mat{x\\y}\mapsto \mat{a&b\\c&d}\mat{x\\y}$. Define
+					$L_{\vec w}$ to be the first-order approximation of $F$ at the point $\vec w$. Find $L_{\vec w}$.
+				\item Let $L$ be an affine function and let $L_{\vec w}$ be the
+					first-order approximation to $L$ at $\vec w$.
+					Prove that $L=L_{\vec w}$ regardless of $\vec w$.
+				\item Prove that if $(W^t,\R^n)$ is a continuous dynamical system with velocities given by
+					$V(\vec x)=A\vec x$ for some matrix $A$, then the point $\vec x\in \R^n$ is stable under $W^t$
+					if and only if the point $\vec 0$ is stable under $W^t$.
+
+				\item From calculus, you know that if $f:\R\to\R$ is differentiable, then $L(w+x)=f'(w)(x)+f(w)$ is a
+					first-order approximation to $f$ at $w$, where $f'$ is the derivative of $f$. Use this knowledge
+					to find a first-order approximation to $F(x,y) = (x+y^2,-y)$ at the points $(1,1)$ and $(1,0)$.
+				\item Let $(W^t,\R^2)$ be the continuous dynamical system that flows along $F(x,y)=(x+y^2,-y)$.
+					Classify $(1,1)$ and $(1,0)$ as stable or unstable. Justify your answer.
+			\end{enumerate}
+		\item Stability/instability describes how points behave under a dynamical system. Let's take a moment to think about
+			how \emph{volumes/areas} behave.
+
+			For this problem, you may use any facts you know about the determinant without justification (so long as they're true\ldots).
+
+			\begin{enumerate}
+				\item The \emph{trace} of a square matrix $X$, denoted $\Tr(X)$,
+					is the sum of its diagonal matrices. Let $A=[\vec a_1|\cdots|\vec a_n]$
+					be a matrix with columns $\vec a_1,\ldots,\vec a_n$.  Let $E_i$ be the identity matrix with
+					the $i$th column replaced with $\vec a_i$. Show that
+					\[
+						\Tr(A) = \sum \det(E_i).
+					\]
+				\item Let $(W^t,\R^2)$ be the continuous dynamical system which flows vectors along the vector field given
+					by $A=\mat{a&b\\c&d}$.
+
+					Write out the limit definition of the derivative $\frac{\partial W^t}{\partial t}$ at time $t=0$.
+					How does this derivative relate to $A$?
+				\item Write down a first-order approximation to $W^t$ \emph{with respect to time} at $t=0$.
+
+					\emph{Hint: the hardest part of this question is figuring out what the previous sentence actually
+					means. Don't get discouraged!}
+
+
+			\end{enumerate}
+
+
+	\end{enumerate}
+
+
+	\subsection*{Programming Problems}
+	For the programming problems, please use the Jupyter notebook available at
+
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework2-exercises.ipynb}
+
+	Make sure to comment your code and use ``Markdown'' style cells to explain your answers.
+
+	\begin{enumerate}
+
+		\item xxx
+	\end{enumerate}
+
+
+
+\end{document}
