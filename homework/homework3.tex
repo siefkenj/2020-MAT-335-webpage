@@ -175,9 +175,10 @@ showstringspaces=false            %
 
 				\item From calculus, you know that if $f:\R\to\R$ is differentiable, then $L(w+x)=f'(w)(x)+f(w)$ is a
 					first-order approximation to $f$ at $w$, where $f'$ is the derivative of $f$. Use this knowledge
-					to find a first-order approximation to $F(x,y) = (x+y^2,-y)$ at the points $(1,1)$ and $(1,0)$.
+					to find a first-order approximation to $F(x,y) = (x+y^2,-y)$ at the points $(0,0)$ and $(1,1)$.
 				\item Let $(W^t,\R^2)$ be the continuous dynamical system that flows along $F(x,y)=(x+y^2,-y)$.
-					Classify $(1,1)$ and $(1,0)$ as stable or unstable. Justify your answer.
+					Classify $(0,0)$ and $(1,1)$ as stable or unstable. Justify your answer; in particular, if you use a
+					first-order approximation, you must explain why it is an appropriate approximation to use. 
 			\end{enumerate}
 		\item Stability/instability describes how points behave under a dynamical system. Let's take a moment to think about
 			how \emph{volumes/areas} behave.
@@ -186,7 +187,7 @@ showstringspaces=false            %
 
 			\begin{enumerate}
 				\item The \emph{trace} of a square matrix $X$, denoted $\Tr(X)$,
-					is the sum of its diagonal matrices. Let $A=[\vec a_1|\cdots|\vec a_n]$
+					is the sum of its diagonal entries. Let $A=[\vec a_1|\cdots|\vec a_n]$
 					be a matrix with columns $\vec a_1,\ldots,\vec a_n$.  Let $E_i$ be the identity matrix with
 					the $i$th column replaced with $\vec a_i$. Show that
 					\[
@@ -202,7 +203,43 @@ showstringspaces=false            %
 					\emph{Hint: the hardest part of this question is figuring out what the previous sentence actually
 					means. Don't get discouraged!}
 
+%				\item Recall that for a matrix $X$,  $\det(X)$ is the signed volume of the parallelepiped determined by
+%					the columns of $X$. Show that for all $X$, there exists $\varepsilon>0$ so that $\det(I+\varepsilon X) > 0$.
+%					That is, all matrices ``close enough'' to $I$ have positive determinant.
 
+				\item Using a first-order approximation for $W^t$, estimate the volume of the image of the unit cube
+					after flowing for $\varepsilon$ seconds.
+
+				\item Find the instantaneous rate of change of volume (area) with respect to time for $W^t$ at time $0$.
+
+					Hint: Recall that $\det$ is a \emph{multi-linear} function of the columns of a matrix. 
+					That is, linear relationships like $\det([\vec c_1|\vec c_2+\alpha \vec d|\vec c_3|\cdots])
+					=\det([\vec c_1|\vec c_2|\vec c_3|\cdots])
+					+\alpha\det([\vec c_1|\vec d|\vec c_3|\cdots])$ hold for every column.
+
+				\item Show that if you drop a dab of ink of area $\alpha$ near the origin and let it flow for via $W^t$
+					for $\varepsilon$ seconds,
+					the area of the resulting blob of ink will be approximately $\alpha\varepsilon\Tr(A)$.
+				\item Let $(N^t, \R^2)$ be a continuous dynamical system which flows points along the vector field
+					$F:\R^2\to\R^2$ given by $F(x,y) = (f_x(x,y), f_y(x,y))$. 
+
+					The first-order approximation to $F$ at a point $(x_0,y_0)$ is given by the \emph{Jacobian}
+					of $F$ at that point. That is, if we define
+					\[
+						J(F)\big|_{(x_0,y_0)} = \mat{
+							\frac{\partial f_x}{\partial x}(x_0,y_0) & \frac{\partial f_x}{\partial y}(x_0,y_0)\\[2pt]
+							\frac{\partial f_y}{\partial x}(x_0,y_0) & \frac{\partial f_y}{\partial y}(x_0,y_0)
+						},
+					\]
+					then 
+					\[
+						F\big((x_0,y_0) + \vec w\big) \approx J(F)\big|_{(x_0,y_0)}\vec w + F(x_0,y_0).
+					\]
+
+					A vector field is called \emph{incompressible} if $\nabla \cdot F = \frac{\partial f_x}{\partial x} + 
+					\frac{\partial f_y}{\partial y}=0$ at all points in its domain (i.e., the divergence is zero everywhere).
+
+					Is the term incompressible warranted? Explain using what you've learned from this problem.
 			\end{enumerate}
 
 
@@ -217,8 +254,115 @@ showstringspaces=false            %
 	Make sure to comment your code and use ``Markdown'' style cells to explain your answers.
 
 	\begin{enumerate}
+		\item We're going to make some beautiful simulations of continuous dynamical systems!
 
-		\item xxx
+			The function \verb|plot_vectorfield| takes in a matplotlib \emph{axis} and a function from $\R^2$ to $\R^2$
+			and plots the corresponding vector field. The functions {\tt V1}, {\tt V2}, {\tt V3}, and {\tt V4} from class
+			have already been defined for you.
+
+			Use \verb|plot_vectorfield| to create a plot that contains 4 subplots. Plot {\tt V1}, {\tt V2}, {\tt V3}, and {\tt V4}
+			in these subplots. The extents should be the rectangle $[-2,2]^2$ and you should plot a $12\times 12$ grid of vectors
+			(i.e., $N=12$).
+
+			Using \verb|ax.set_title()|, label each of your subplots appropriately.
+		\item The simplest way to simulate a flow along a vector field is called Euler's method.\footnote{If you want to play with more advanced
+			methods, you can look up the \emph{Runge-Kutta-Fehlberg} methods. \url{http://web.cs.ucdavis.edu/~ma/ECS177/papers/particle_tracing.pdf}}
+			Let $\vec F:\R^n\to\R^n$ be a vector field. Euler's method says to simulate a flow along $\vec F$ starting at $\vec v$
+			perform a series of computations
+			\begin{align*}
+				\vec v_1 &= \vec v + \varepsilon \vec F(\vec v)\\
+				\vec v_2 &= \vec v_1 + \varepsilon \vec F(\vec v_1)\\
+				\vec v_3 &= \vec v_2 + \varepsilon \vec F(\vec v_2)\\
+				&~\vdots\\
+				\vec v_n &= \vec v_{n-1} + \varepsilon \vec F(\vec v_{n-1})
+			\end{align*}
+			Then, $\vec v_n$ will be the approximate result of flowing along $\vec F$ for $n\varepsilon$ seconds.
+
+			Write a function {\tt euler} that takes in a starting $x$-coordinate, $y$-coordinate, a number of steps and an epsilon
+			and performs Euler's method for {\tt V1} for the specified number of steps with the specified epsilon.
+		\item Let's make some pictures! Along they way, we'll make a more general method.
+
+			Create two functions {\tt flow} and {\tt orbit}. They each take in a starting $x$, $y$, a function
+			that defines a vector field, a time, and an epsilon.
+
+			{\tt flow} will use Euler's method with the specified parameters and output the result of flowing
+			along the vector field for {\tt t} seconds (well, the approximate result).
+
+			{\tt orbit} will perform the same operations as {\tt flow} except it will return a tuple \verb|(xs, ys)|
+			where {\tt xs} and {\tt ys} are Numpy arrays with the $x$ and $y$ coordinates of every step of Euler's method.
+			For example, if you did two steps of Euler's with $\vec v=(1,0)$, $\vec v_1=(1,0.01)$, and $\vec v_2=(0.99, 0.02)$,
+			then {\tt orbit} would return {\tt xs=(1,1,0.99)} and {\tt ys=(0,0.01,0.02)}.
+
+		\item For $V_1$, we know that all vectors flow in a circle with period $2\pi$ seconds. Let's see what our simulations
+			tell us.
+
+			Make a plot with the vector field $V_1$ and the $t=4\pi$ orbits\footnote{The orbit restricted to times between
+			$0$ and $4\pi$.} of the point $(1,0)$ simulated with a steps size (epsilon) of $0.1$, $0.01$, and $0.001$. Are
+			your simulated orbits periodic? Explain.
+
+		\item We are going to try to guess the period of orbits from our simulations. The idea we'll use is as follows:
+			We compute and see which points along the orbit are close to the starting point. We then use this information
+			to compute the ``time'' that the orbit was closest to the starting point.
+
+			We'll implement an algorithm to do this in steps.
+			\begin{enumerate}
+				\item A \emph{run} of integers is a sequence of integers $x_1,x_2,\ldots$
+					where $x_i=x_{i-1}+1$. Create a function \verb|split_runs| which takes a list of integers and returns
+					a list containing all maximal runs contained within the original sequence.
+				\item Create a function \verb|indices_close_to_min| which inputs a 1D Numpy array and a tolerance and returns
+					a list containing the indices of that array which are within the specified tolerance of the array's minimum
+					value.
+				\item Create a function \verb|guess_minimums| that inputs a Numpy array {\tt seq}, an epsilon, and a tolerance and
+					outputs a guess of where the minimums of {\tt seq} are (in the form of a list); instead of returning the index
+					of the minimum, your function should return epsilon$\times$index of minimums. 
+
+					Some things to keep in mind:
+					\begin{itemize}
+						\item {\tt seq} may get close to the its minimum several times (and in our case, it will likely
+							\emph{start} at its minimum).
+						\item If {\tt seq} is close to its minimum at the \emph{run} of indices $(a,b,c)$,
+							the minimum is probably closest to occurring at index $b$.
+						\item If the input to your function came from an Euler approximation with step size epsilon,
+							this function will output an estimate of what \emph{time} the minimums occur.
+					\end{itemize}
+				\item We know that the period of points flowing along $V_1$ is exactly $2\pi$ (excluding the origin).
+					Use {\tt orbit} and \verb|guess_minimums| to estimate the period of flowing along
+					$V_1$ starting at $\vec v_0=(-1,0)$. Estimate the period using step sizes of $0.01$ and $0.001$.
+					How well do you approximate $2\pi$?
+			\end{enumerate}
+		\item Let's analyze the mysterious $V_3$.
+			\begin{enumerate}
+				\item Plot the vector field $V_3$ along with the orbits of $(-1,0)$, $(-1.1,0)$, and $(-1.2,0)$. Do you
+					think flows starting at these points are periodic? Why or why not?
+				\item Estimate the periods of the flows starting at $(-1,0)$, $(-1.1,0)$, and $(-1.2,0)$. Can you say with
+					confidence whether or not the periods are the same?
+				\item Once and for all, argue whether or not flows along $V_3$ are stable.
+			\end{enumerate}
+
+		\item {\bf Flows of regions}. It's time to drop some ink in the current! We are going to flow polygonal regions along our vector
+			fields.
+			\begin{enumerate}
+				\item Create the functions \verb|make_perimiter_circle| and \verb|make_perimiter_square|.
+				\verb|make_perimiter_circle| inputs a center and radius and number of points and outputs points along
+					the specified circle (in counter-clockwise order). \verb|make_perimiter_square| inputs a lower-left
+					corner of a square, its width, and a number and outputs that many points along the edges of 
+					the square (again in counter-clockwise order).
+
+					Your functions should return a tuple {\tt (xs, ys)} with the coordinates.
+				\item We can graph polygonal regions in Matplotlib using the {\tt Polygon} and {\tt PatchCollection}
+					functions. But, they require as inputs a list of ordered pairs (whereas most other
+					functions want the $x$s and $y$s as separate arrays). The \verb|zip_coords| utility function
+					will take a tuple of $x$ coordinates and $y$ coordinates and turn it into a list
+					of coordinate pairs.\footnote{This is a very similar operation to the transpose!}
+
+					Read and execute the notebook cell that graphs a square and a circle.
+				\item By using the trusty {\tt np.vectorize}, we can turn our {\tt flow} function into one
+					that accepts lists of coordinates instead of single coordinates. Create \verb|vec_flow|,
+					the vectorized version of {\tt flow}.
+
+					Now, plots the vector field $V_3$ along with the square with lower-left corner $(-1,0)$ and
+					width $1/2$ and the image of this square after it has flowed for 1 second.
+			\end{enumerate}
 	\end{enumerate}
 
 
