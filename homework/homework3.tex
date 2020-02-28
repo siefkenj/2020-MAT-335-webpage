@@ -249,7 +249,7 @@ showstringspaces=false            %
 	\subsection*{Programming Problems}
 	For the programming problems, please use the Jupyter notebook available at
 
-	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework2-exercises.ipynb}
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework3-exercises.ipynb}
 
 	Make sure to comment your code and use ``Markdown'' style cells to explain your answers.
 
@@ -260,7 +260,8 @@ showstringspaces=false            %
 			and plots the corresponding vector field. The functions {\tt V1}, {\tt V2}, {\tt V3}, and {\tt V4} from class
 			have already been defined for you.
 
-			Use \verb|plot_vectorfield| to create a plot that contains 4 subplots. Plot {\tt V1}, {\tt V2}, {\tt V3}, and {\tt V4}
+			Use \verb|plot_vectorfield| to create a plot that contains 4 subplots.\footnote{
+				For a bonus, you could make a second plot using {\tt plot\_streams}.} Plot {\tt V1}, {\tt V2}, {\tt V3}, and {\tt V4}
 			in these subplots. The extents should be the rectangle $[-2,2]^2$ and you should plot a $12\times 12$ grid of vectors
 			(i.e., $N=12$).
 
@@ -336,6 +337,7 @@ showstringspaces=false            %
 					think flows starting at these points are periodic? Why or why not?
 				\item Estimate the periods of the flows starting at $(-1,0)$, $(-1.1,0)$, and $(-1.2,0)$. Can you say with
 					confidence whether or not the periods are the same?
+					\label{REFPERIOD}
 				\item Once and for all, argue whether or not flows along $V_3$ are stable.
 			\end{enumerate}
 
@@ -360,8 +362,28 @@ showstringspaces=false            %
 					that accepts lists of coordinates instead of single coordinates. Create \verb|vec_flow|,
 					the vectorized version of {\tt flow}.
 
-					Now, plots the vector field $V_3$ along with the square with lower-left corner $(-1,0)$ and
-					width $1/2$ and the image of this square after it has flowed for 1 second.
+					Now, plot the vector field $V_3$ along with the square with lower-left corner $(-1,0)$ and
+					width $1/2$ and the image of this square after it has flowed for $1.5$ seconds. (Use at least 100 points
+					along the boundary of your square.)
+
+					Make another plot and flow the square along $V_3$ for $\alpha$ seconds, where $\alpha$ is the period
+					you got for $(-1,0)$ in \ref{REFPERIOD}.
+				\item Execute the next cell which, if all works correctly, will render an animation of the unit cube flowing for 
+					10 seconds. (If you want to save this animation as a movie, you can execute
+					\verb|HTML(anim.to_html5_video())| and the right-click/ctrl-click to save the resulting movie.)
+
+					\emph{Rendering the animation will take a while.}
+				\item Produce an animation of the circle of radius $1/4$ centered at $(0,0)$ flowing for 20 seconds.
+					Is the origin stable for this dynamical system?
+			\end{enumerate}
+		\item {\bf The Rings of Saturn}. According to Newtonian gravity, the speed of a body orbiting 
+			at radius $r$ is proportional to $\sqrt{r}$.
+			\begin{enumerate}
+				\item Assuming that the ``sun'' is at the origin, create a vector field {\tt V5} such that
+					flows along that vector field behave like orbiting bodies.
+				\item Produce an animation showing what would happen to a cloud of dust which started orbiting
+					a planet.
+				\item Why does Saturn have rings?
 			\end{enumerate}
 	\end{enumerate}
 
