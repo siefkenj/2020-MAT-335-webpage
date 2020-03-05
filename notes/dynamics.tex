@@ -1095,6 +1095,87 @@ copyright.
 	\end{parts}
 
 
+	\newpage
+	\subsection*{The Shift Space}
+
+	\begin{definition}[Full Shift]
+		Let $\Omega=\Set{0,1,\ldots,n-1}^\N$ and define $\sigma:\Omega\to\Omega$ by
+		\[
+			\sigma(a_0,a_1,a_2\ldots) = (a_1,a_2,\ldots).
+		\]
+		The dynamical system $(\sigma, \Omega)$ is called
+		the \emph{full shift on $n$ symbols}. 
+	\end{definition}
+
+	The dynamical system $(\sigma, \Omega)$ is also called a \emph{shift space} and is equipped
+	with a topology coming from the \emph{standard metric} on $\Omega$. This metric determines which
+	sequences converge.
+
+	\begin{definition}[Standard Metric on $\Omega$]
+		The \emph{standard metric} on $\Omega$ is the function $d:\Omega\times \Omega\to[0,\infty)$ defined by
+		\[
+			d(x,y) = \begin{cases}
+				0 & \text{ if }x=y\\
+				2^{-i}&\text{ where } i=\min_j\Set{j:x_j\neq y_j}
+			\end{cases}
+		\]
+		where $x=(x_0,x_1,\ldots)$ and $y=(y_0,y_1,\ldots)$ are points in $\Omega$.
+	\end{definition}
+
+	\question
+	Let $(\sigma,\Omega)$ be the full shift on two symbols.
+	\begin{parts}
+		\item Let $x=(1,0,1,0,1,0,\ldots)$ and $y=(0,0,0,0,1,0,1,0,\ldots)$.
+			Find $d(x,y)$, $d(\sigma(x),\sigma(y))$, $d(\sigma^2(x),\sigma^2(y))$, \ldots.
+		\item Let $\vec 1 = (1,1,1,\ldots)$. Find points $a,b\in\Omega$ so that 
+			\[
+				d(\sigma^n(a),\vec 1)\nearrow 1
+			\qquad\text{and}\qquad
+				d(\sigma^n(a),\vec 1)\searrow 0.
+			\]
+
+		\item Let $(T,[0,1))$ be the doubling map and let $\C$ be the coding function
+			for the partition $\Set{[0,1/2),[1/2,1)}$. You can view $\C$ as a function
+			from $[0,1)\to\Omega$.
+
+			For $t=1/3$, compute $\C(t)$, $\C\circ T(t)$, and $\sigma\circ \C(t)$. What
+			do you notice? Will this always happen?
+		\item Is $\C([0,1))\subseteq \Omega$ closed? (I.e., does it include all its limit points?)
+		\item Let $t,t'\in[0,1)$ and let $a=\C(t)$ and $a'=\C(t')$.
+			\begin{enumerate}
+				\item If $d(a,a')$ is small, what can you say about $|t-t'|$?
+				\item If $|t-t'|$ is small, what can you say about $d(a,a')$?
+			\end{enumerate}
+	\end{parts}
+
+	The full $2$-shift isn't a perfect representation of the doubling map, but it's close! And, it
+	turns out to be much easier to study.
+
+	\begin{definition}[Subshift]
+		Let $(\sigma,\Omega)$ be the full shift on $n$ symbols. The system $(\sigma, X)$ is
+		called a \emph{subshift} provided
+		\begin{enumerate}
+			\item $X\subseteq \Omega$ is a closed set (i.e., it contains all its limit points); and
+			\item $X$ is $\sigma$-invariant (i.e., $\sigma(X)=X$).
+		\end{enumerate}
+	\end{definition}
+
+	\question
+	Consider the circle rotation with $k=1/4$. Let $\mathcal O(0)$ be the \emph{orbit}
+	of $0$ under this map, and define $X=\C(\mathcal O(0))$ with the usual partition.
+	\begin{parts}
+		\item Write down $X$.
+		\item Is $(\sigma, X)$ a subshift?
+		\item For each $x\in X$, find a corresponding $x'\in [0,1)$ so that
+			$x=\C_T(x')$ where $\C_T$ is the coding with respect to the \emph{doubling map}
+			and the standard partition.
+		\item Can you model a circle rotation with the doubling map/subshift?
+	\end{parts}
+
+
+
+
+
 
 	\newpage
 	To really understand this situation, we need to know some things about \emph{probability theory}.
