@@ -1148,6 +1148,7 @@ copyright.
 			\end{enumerate}
 	\end{parts}
 
+	\newpage
 	The full $2$-shift isn't a perfect representation of the doubling map, but it's close! And, it
 	turns out to be much easier to study.
 
@@ -1172,9 +1173,100 @@ copyright.
 		\item Can you model a circle rotation with the doubling map/subshift?
 	\end{parts}
 
+	\question
+	Let $\mathcal M$ be the Markov chain with transition matrix $\mat{.5&1\\.5&0}$ and let
+	$\mathcal M'$ be the Markov chain with transition matrix $\mat{.5&.9\\.5&.1}$.
 
+	Let $X=\Set{\text{realizations of $\mathcal M$}}$ and let
+	$X'=\Set{\text{realizations of $\mathcal M'$}}$.
+	\begin{parts}
+		\item Is $(\sigma, X)$ a subshift? Why or why not? What does $\sigma$ mean in terms of the original Markov chain?
+		\item Is $(\sigma, X')$ a subshift? What does it ``look'' like?
+		\item Let $Y$ be the set of \emph{generic} realizations of $\mathcal M$. Is $(\sigma, Y)$ a subshift?
+	\end{parts}
 
+	\begin{definition}[Word]
+		Fix $\Omega=\Set{0,\ldots, n-1}^\N$.
+		The finite list $w=(w_0,\ldots,w_{k-1})\in \Set{0,\ldots, n-1}^k$ is called a \emph{word of length $k$} in $\Omega$.
 
+		If $x=(x_0,x_1,\ldots)\in \Omega$, we say that \emph{$x$ contains the word $w$} if for some $j$, 
+		$w_i = x_{j+i}$ for all $i=0,\ldots,k-1$.
+
+		If $X\subseteq \Omega$, we say \emph{$X$ contains the word $w$} if there exists $x\in X$ where
+		$x$ contains the word $w$.
+	\end{definition}
+
+	\begin{definition}[Normalized Topological Entropy]
+		Let $(\sigma, X)$ be a subshift of the full shift $(\sigma, \Omega)$. The \emph{normalized topological entropy}
+		of $X$ is
+		\[
+			\mathcal H(X) = \lim_{k\to\infty}\frac{\log(\text{\# words of length $k$ in $X$})}{\log(\text{\# words of length $k$ in $\Omega$})}.
+		\]
+	\end{definition}
+
+	\question
+	Let $\mathcal C$ be the $3$-state Markov chain with transition matrix $\mat{1&1&1\\0&0&0\\1&1&1}$
+	and let $X\subseteq \Set{0,1,2}^\N=\Omega$ be the set of realizations of $\mathcal C$ starting at $0$ or $2$.
+	\begin{parts}
+		\item Draw the graph associated with $\mathcal C$.
+		\item Find the (normalized topological) entropy of $(\sigma, X)$.
+		\item Find the (normalized topological) entropy of $(\sigma, \Omega)$.
+		\item Draw $\E(X)$ as a subset of $[0,1]$. What is its fractal dimension?
+	\end{parts}
+
+	\newpage
+	Entropy gives a way of classifying subshifts based on how ``big'' they are. This can be interpreted
+	as how densely a subshift can store information.
+
+	\question
+	Let $\Omega=\Set{0,1}^\N$ and let $X\subseteq \Omega$ be the set of points with no two $1$'s in a row.
+	\begin{parts}
+		\item How many words of length $1,2,3,4$ are there in $\Omega$? How about in $X$?
+		\item Is $(\sigma, X)$ a subshift? Why or why not?
+		\item Can $(\sigma, X)$ be modeled by a Markov chain? If so, write down its transition matrix (not the stochastic one,
+			the other one).
+		\item How do $A$, $A^2$, $A^3$,\ldots relate to the number of words in $X$?
+		\item Find the entropy of $(\sigma, X)$.
+		\item If you wanted to transmit $n$ bits of information but you were only allowed to send subwords of $X$, how long of a subword
+			would you need?
+	\end{parts}
+
+	Entropy relates to how much information you can get about a point by asking a series of questions.
+
+	\question
+	Let $C\subseteq[0,1]$ be the standard Cantor set. Every ``piece'' of $C$ has a left and a right. You are trying to locate a 
+	point $x\in C$ by asking a series of questions like:
+	\begin{itemize}
+		\item Is $x$ in the left or right half of $C$?
+		\item Is $x$ in the left or right half of the left/right half of $C$?
+
+			~~~~\vdots
+	\end{itemize}
+	\begin{parts}
+		\item What can you say about $x$ if you know
+			\begin{enumerate}
+				\item it's in the left half of $C$?
+				\item it's in the left half of the left half of $C$?
+				\item it's in the right half of the left half of the left half of $C$?
+			\end{enumerate}
+		\item Let $A_n=(a_1,\ldots, a_n)\in\Set{\text{left},\text{right}}^n$ be the answers to the first $n$ questions
+			you ask.
+
+			Given $A_n$, what is the maximum error you could have in guessing $x$?
+		\item Playing the same game trying to find the point  $y\in [0,1]$, you ask a series of left-right questions and
+			get a sequence of answers $A_n'$. Given $A_n'$ what is the maximum error you could have in guessing $y$?
+		\item Let $E_n$ be the maximum error you have in guessing $x$ given the answers $A_n$
+			and let $E_n'$ be the maximum error you have in guessing $y$ given the answers $A_n'$.
+			Compute
+			\[
+				\lim_{n\to\infty} \frac{\log(E_n)}{\log(E_n')}.
+			\]
+		\item If you want to locate a point in $[0,1]$ with error less than $\varepsilon$, how many left-right
+			questions do you need to ask?
+		\item If you want to locate a point in $C$ with error less than $\varepsilon$, how many left-right
+			questions do you need to ask?
+
+	\end{parts}
 
 
 	\newpage
