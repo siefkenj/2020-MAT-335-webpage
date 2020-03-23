@@ -225,28 +225,42 @@ showstringspaces=false            %
 
 
 	\item Two dynamical systems $(T, X)$ and $(S,Y)$ are called \emph{conjugate} if there exists a continuous, invertible
-		function $\Phi:X\to Y$ so that $T=\Phi^{-1}\circ S\circ \Phi$. In this case, $\Phi$ is called a \emph{conjugacy}.
+		function $\Phi:Y\to X$ so that $T=\Phi^{-1}\circ S\circ \Phi$. In this case, $\Phi$ is called a \emph{conjugacy}.
 
-%		The systems are called \emph{semi-conjugate} if there
-%			exist continuous functions $\Phi:X\to Y$ and $\Psi:Y\to X$ so that
-%			$\Psi\circ T$ = $S\circ \Phi$.
+		The systems are called \emph{semi-conjugate} if there
+			exist continuous, onto function $\Phi:Y\to X$ so that
+			$T\circ\Phi$ = $\Phi\circ S$. In this case, $\Phi$ is called a \emph{semi-conjugacy}.
 
 
 		\begin{enumerate}
 			\item Let $(T,X)$ and $(S,Y)$ be conjugate dynamical systems.
 				\begin{enumerate}
-					\item Show that if there exists a point of period $k$ in $X$, there exists a point
-						of period $k$ in $Y$.
-					\item Show that if $(T,X)$ is transitive, then $(S,Y)$ is transitive.
-					\item Is it true that if $(T,X)$ is expansive, then $(S,Y)$ is expansive?
+					\item Show that if there exists a point of period $k$ in $Y$, there exists a point
+						of period $k$ in $X$.
+					\item Show that if $(S,Y)$ is transitive, then $(T,X)$ is transitive.
+					\item Is it true that if $(S,Y)$ is expansive, then $(T,X)$ is necessarily expansive?
+				\end{enumerate}
+			\item Prove that if $(T,X)$ and $(S,Y)$ are conjugate dynamical systems, that they are also semi-conjugate dynamical
+				systems.
+			\item Let $(T,X)$ and $(S,Y)$ be semi-conjugate dynamical systems.
+				\begin{enumerate}
+					\item Show that if there exists a point of period $k$ in $Y$, there exists a point
+						of period $k$ in $X$.
+					\item Show that if $(S,Y)$ is transitive, then $(T,X)$ is transitive.
+					\item Is it true that if $(S,Y)$ is expansive, then $(T,X)$ is necessarily expansive?
+				\end{enumerate}
+			\item Let $(T,[0,1))$ be the doubling map and let $(\sigma, \Omega)$ be the full two shift.
+				\begin{enumerate}
+					\item Show that $(T,[0,1))$ and $(\sigma, \Omega)$ are semi-conjugate.
+					\item Show that $(T,[0,1))$ is chaotic.
 				\end{enumerate}
 			\item Let $(T,[0,1))$ be the doubling map and let $(L,[0,1))$ be the \emph{logistic map} defined by
 				$L(x)=rx(1-x)$ for $r=4$.
 				\begin{enumerate}
-					\item Define $f:[0,1)\to[0,1)$ by $f(x)=\sin^2(2\pi x)$. Show that $f$ is a conjugacy
-						between $(T,[0,1))$ and $(L,[0,1))$.
+					\item Define $f:[0,1)\to[0,1)$ by $f(x)=\sin^2(2\pi x)$. Show that $f$ is a semi-conjugacy
+						between $(L,[0,1))$ and $(T,[0,1))$.
+					\item Show that $(L,[0,1))$ contains points of every period.
 					\item Show that $(L,[0,1))$ is chaotic.
-					\item (bonus) Show that $(L,[0,1))$ contains points of every period.
 				\end{enumerate}
 		\end{enumerate}
 
