@@ -1284,9 +1284,61 @@ copyright.
 	\end{parts}
 
 	\newpage
+	\begin{definition}[Expansive]
+		A dynamical system $(T,X)$ is \emph{expansive} at the point $x\in X$ if there exists $\varepsilon>0$
+		such that for all $y$,
+		\[
+			d(T^nx,T^ny) > \varepsilon
+		\]
+		for some $n\geq 0$. The system $(T,X)$ is called \emph{expansive} if it is expansive at every point in $X$.
+	\end{definition}
 	\question
-	fds
+	\begin{parts}
+		\item What's the difference between being expansive and not being \emph{stable}?
+		\item Let $(T,S)$ be a circle rotation by $1/4$. Is $(T,S)$ expansive?
+		\item Let $(\sigma, \Omega)$ be the full two-shift. Is $(\sigma, \Omega)$ expansive?
+		\item Let $(T_f, \R)$ be the Newton's method map from the first day of class. Is $(T_f,\R)$
+			expansive?
+		\item Suppose $(T,X)$ is an expansive dynamical system.
+		\begin{enumerate}
+			\item Can $(T,X)$ have fixed points?
+			\item Can $(T,X)$ have a periodic point?
+			\item Can $(T,X)$ have an attracting point?
+		\end{enumerate}
+	\end{parts}
 
+
+
+	\newpage
+	\begin{definition}[Transitivity]
+		Let $(T,X)$ be a dynamical system. The point $x\in X$ is called \emph{transitive}
+		if $\overline{\mathcal O(x)}=X$. The system $(T,X)$ is called \emph{transitive}
+		if there exists a transitive point in $X$.
+	\end{definition}
+	Here, $\overline{\mathcal O(x)}=X$ denotes the \emph{closure} of the orbit of $x$. That is,
+	all points that are limits of points in $\mathcal O(x)$.
+	
+	\question
+	\begin{parts}
+		\item Let $(T_{1/4},S)$ be a circle rotation with angle $1/4$. Find $\overline{\mathcal O(0)}$.
+			Is $(T_{1/4},S)$ transitive?
+		\item Let $(T_{\sqrt{2}},S)$ be a circle rotation with angle $1/4$. Find $\overline{\mathcal O(0)}$.
+			Is $(T_{\sqrt{2}},S)$ transitive?
+		\item Let $(\sigma, \Omega)$ be the full two-shift and let $x=10100100010000100\cdots$. What is 
+			$\overline{\mathcal O(x)}$.
+		\item Is $(\sigma,\Omega)$ transitive?
+	\end{parts}
+
+	\newpage
+	\begin{definition}[Chaos]
+		A dynamical system $(T,X)$ is called \emph{chaotic} if it is both expansive and transitive.
+	\end{definition}
+	\question
+	\begin{parts}
+		\item Let $(T_\theta, S)$ be a circle rotation with angle $\theta$. Is $(T_\theta, S)$ chaotic?
+		\item Let $(\sigma, \Omega)$ be the full two-shift. Is $(\sigma, \Omega)$ chaotic?
+		\item Let $(\sigma, X)$ be a subshift of the full two-shift. Is $(\sigma, X)$ chaotic?
+	\end{parts}
 
 
 
