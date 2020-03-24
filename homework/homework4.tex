@@ -270,12 +270,57 @@ showstringspaces=false            %
 	\subsection*{Programming Problems}
 	For the programming problems, please use the Jupyter notebook available at
 
-	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework3-exercises.ipynb}
+	\url{https://utoronto.syzygy.ca/jupyter/user-redirect/git-pull?repo=https://github.com/siefkenj/2020-MAT-335-webpage&subPath=homework/homework4-exercises.ipynb}
 
 	Make sure to comment your code and use ``Markdown'' style cells to explain your answers.
 
 	\begin{enumerate}
-		\item 
+		\item The \emph{logistic map with parameter $r$} is the function $f:[0,1]\to[0,1]$ defined by $f(x)=rx(1-x)$ (for $r\in[0,4]$).
+			It was invented as a simple model for population in biology. The idea is that if $x$ is your original population,
+			there will be some birth rate $r$ governing population growth; however, when the population outstretches its
+			resources, its growth will be constrained. The $1-x$ parameter models this constraint on growth.
+
+			Despite being so simple, the logistic map can have amazingly complex behaviour!
+
+		\begin{enumerate}
+			\item A two-parameter logistic function {\tt f} has been predefined. Create a function \verb|orbit_f| which inputs
+				a starting value, a parameter $r$, and an orbit length $n$, and returns a list with the first
+				$n$ points along the orbit of {\tt f}.
+
+			\item \label{PARTIALORBIT}Given a dynamical system $(T,X)$, the $n$-orbit of $x$ is $\mathcal O^n(x)=\{x,Tx,\ldots, T^{n-1}x\}$.
+
+				Using $r=2$, plot the 20-orbits of $x$ for at least 10 different $x$'s. What do you notice?
+			\item Does the logistic map with $r=2$ have a \emph{basin of attraction}\footnote{ Look back in the notes
+				if you've forgotten this term.}? Justify your conclusion.
+			\item Repeat part \ref{PARTIALORBIT} using $r=3$. What do you notice? Is there a basin of attraction consisting of a single point?
+
+			\item In general, a \emph{basin of attraction} for a dynamical system is a set which all points limit to.
+				Does the logistic map have a basin of attraction when $r=3$? If so, describe it.
+
+			\item Repeat part \ref{PARTIALORBIT} with $r=4$. Is there a basin of attraction? Why or why not?
+		\end{enumerate}
+
+		\item We are going to plot the basins of attraction for the logistic map as a function of $r$. We can approximate a basin
+			of attraction by taking the $1000$-orbit of several points, and then taking the set consisting of the last $100$ points
+			in each orbit.
+
+		\begin{enumerate}
+			\item Create a function \verb|approximate_basin| which takes in a parameter $r$ and returns a list
+				of points that approximate the basin of attraction of the logistic map with parameter $r$.
+
+				\emph{Hint:} It may be useful to round your results to 3 or 4 decimal places and then use {\tt np.unique}
+				to get a list of manageable length.
+			\item Plot the basins of attraction of the logistic map vs. $r$ for at 1000 different values of $r$ between $0$
+				and $4$.
+			\item What do you notice about the basins of attraction? Did you expect this?
+			\item In the \emph{math} part of this homework set, you proved that the logistic map is chaotic when $r=4$.
+				What does that imply about the basin of attraction?
+
+			\item If a population is well-modeled by the logistic map with a parameter of $r=3.82$, what can you say about the population
+				after 1000 days? What if it is modeled by a logistic map with parameter $r=3.83$? Is the population more or less
+				predictable?
+		\end{enumerate}
+
 	\end{enumerate}
 
 
